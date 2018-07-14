@@ -1,0 +1,24 @@
+package com.yj.cardgame.card.trapCard;
+
+import com.yj.cardgame.character.AbstractCharacter;
+
+/**
+ * Created by yangjie on 2018/7/14.
+ */
+
+public class PerfectCubeCard extends TarpCard {
+    @Override
+    public String getDescribe() {
+        return "抵挡敌人的普通卡伤害1次";
+    }
+
+    @Override
+    public void use(AbstractCharacter user, AbstractCharacter accepter) {
+        // TODO: 2018/7/14
+    }
+
+    @Override
+    public String getName() {
+        return "完美立方体";
+    }
+}
