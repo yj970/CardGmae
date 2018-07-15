@@ -8,6 +8,11 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class UnfairTreatmentCard extends MagicCard {
     @Override
+    public int getCardCode() {
+        return 7;
+    }
+
+    @Override
     public String getDescribe() {
         return "对手随机丢弃一张手牌";
     }

@@ -7,4 +7,7 @@ import com.yj.cardgame.card.AbstractCard;
  */
 
 public abstract class MagicCard extends AbstractCard {
+    public MagicCard() {
+        super();
+    }
 }

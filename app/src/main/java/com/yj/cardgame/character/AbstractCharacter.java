@@ -5,8 +5,10 @@ import android.util.Log;
 import com.yj.cardgame.Game;
 import com.yj.cardgame.card.AbstractCard;
 import com.yj.cardgame.card.NullCard;
+import com.yj.cardgame.card.normalCard.NormalCard;
 import com.yj.cardgame.config.CardConfig;
-import com.yj.cardgame.equipment.AbstractEquipment;
+import com.yj.cardgame.card.equipmentCard.EquipmentCard;
+import com.yj.cardgame.state.AbstractState;
 import com.yj.cardgame.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -22,19 +24,22 @@ public abstract class AbstractCharacter {
     private int hp; // 当前血量
     private int maxHp; // 最高血量
     private int maxCardNum; // 最大手牌数
-    private List<AbstractEquipment> equipments; // 装备容器
+    private int maxEquipmentNum; // 最大装备牌数
+    private AbstractCard[] equipments; // 装备容器
     private AbstractCard[] cards; // 手牌组
     private AbstractCard[] nullCards;// 空牌组
     private NullCard nullCard = new NullCard();// 空牌
     private ArrayList<Integer> cardGroupIndexList = new ArrayList<>(); // 卡组索引
     private List<AbstractCard> cardGroupList = new ArrayList<>(); // 卡组
 
+    private ArrayList<AbstractState> states;// 状态
+
     public AbstractCharacter() {
         maxHp = getMaxHp();
         name = getName();
         maxCardNum = getMaxCardNum();
+        maxEquipmentNum = getMaxEquipmentNum();
         hp = getMaxHp();
-        equipments = new ArrayList<>();
         cards = new AbstractCard[maxCardNum];
 
         nullCards = new AbstractCard[maxCardNum];
@@ -42,6 +47,8 @@ public abstract class AbstractCharacter {
             nullCards[i] = new NullCard();
         }
         cards = nullCards.clone();
+        equipments = nullCards.clone();
+        states = new ArrayList();
         // 设置卡组索引
         setCardGroupIndex(cardGroupIndexList);
         // 根据卡组索引，拿到对应的卡牌，添加进卡组
@@ -73,6 +80,8 @@ public abstract class AbstractCharacter {
 
     public abstract int getMaxCardNum();
 
+    public abstract int getMaxEquipmentNum();
+
     public int getHp() {
         return hp;
     }
@@ -86,6 +95,9 @@ public abstract class AbstractCharacter {
     }
 
     public void useCard(int position) {
+        AbstractCard usedCard = cards[position];
+        cards[position] = nullCard;
+
         AbstractCharacter user;
         AbstractCharacter accept;
         if (this instanceof Player) {
@@ -95,8 +107,27 @@ public abstract class AbstractCharacter {
             user = Game.monster;
             accept = Game.player;
         }
-        cards[position].use(user, accept);
-        cards[position] = nullCard;
+        // 如果是普通牌，则进行遍历状态
+        if (usedCard instanceof NormalCard) {
+            // 使用者的状态
+            for (AbstractState state : states) {
+                state.use((NormalCard) usedCard, user, accept);
+            }
+            // 接收者的状态
+            List<AbstractState> tempStates = accept.getAllStates();
+            for (AbstractState state : tempStates) {
+                state.use((NormalCard) usedCard, user, accept);
+            }
+        }
+
+        // 如果是武器牌，则移除战斗
+        if (usedCard instanceof EquipmentCard) {
+            cardGroupIndexList.remove(new Integer(usedCard.getCardCode()));
+        }
+        // 使用卡牌效果
+        usedCard.use(user, accept);
+        // log 日记
+        Log.d("MyTAG", user.getName()+"使用"+usedCard.getName()+" "+accept.getName()+"剩余生命为"+accept.getHp());
     }
 
 
@@ -179,5 +210,47 @@ public abstract class AbstractCharacter {
      */
     public AbstractCard getCard(int i) {
         return cards[i];
+    }
+
+    /**
+     * 添加状态
+     */
+    public void addState(AbstractState state) {
+        states.add(state);
+    }
+
+    /**
+     * 添加装备
+     * @param card
+     */
+    public void addEquipment(EquipmentCard card) {
+        boolean isAdd = false; // 是否成功加入手牌
+        for (int i = 0; i < maxEquipmentNum; i++) {
+            if ((equipments[i] instanceof NullCard)) {
+                equipments[i] = card;
+                isAdd = true;
+                break;
+            }
+        }
+        if (!isAdd) {
+            ToastUtil.show("装备槽已满，无法加入新装备!");
+            Log.d("MyTAG", this.getName());
+        }
+    }
+
+    public AbstractCard getEquipment(int i) {
+        return equipments[i];
+    }
+
+    /**
+     * 获取状态
+     * @return
+     */
+    public AbstractState getStates(int i) {
+        return states.get(i);
+    }
+
+    public List<AbstractState> getAllStates() {
+        return states;
     }
 }

@@ -7,4 +7,27 @@ import com.yj.cardgame.card.AbstractCard;
  */
 
 public abstract class NormalCard extends AbstractCard {
+    public int damage = 0;// 卡牌造成的基本伤害
+
+    public NormalCard() {
+        super();
+        damage = getBaseDamage();
+    }
+
+    public abstract int getBaseDamage();
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void increaseDamage(int i) {
+        damage += i;
+    }
+
+    public void  decreaseDamage(int i) {
+        damage -= i;
+        if (damage <= 0) {
+            damage = 0;
+        }
+    }
 }

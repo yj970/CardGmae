@@ -23,10 +23,16 @@ public class Monster extends AbstractCharacter {
     }
 
     @Override
+    public int getMaxEquipmentNum() {
+        return 4;
+    }
+
+    @Override
     public void setCardGroupIndex(List<Integer> cardGroupList) {
         cardGroupList.add(1);
         cardGroupList.add(1);
         cardGroupList.add(1);
         cardGroupList.add(1);
+        cardGroupList.add(11);
     }
 }

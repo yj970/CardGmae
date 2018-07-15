@@ -8,6 +8,11 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class GodHandCard extends MagicCard {
     @Override
+    public int getCardCode() {
+        return 6;
+    }
+
+    @Override
     public String getDescribe() {
         return "自己额外抽2张卡";
     }

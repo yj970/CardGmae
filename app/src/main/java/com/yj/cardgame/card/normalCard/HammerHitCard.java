@@ -8,18 +8,28 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class HammerHitCard extends NormalCard{
     @Override
+    public int getCardCode() {
+        return 4;
+    }
+
+    @Override
     public String getDescribe() {
-        return "对敌人造成5点伤害，自己造成3点伤害";
+        return "对敌人造成"+damage+"点伤害，自己造成3点伤害";
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        accepter.reduceHp(5);
+        accepter.reduceHp(damage);
         user.reduceHp(3);
     }
 
     @Override
     public String getName() {
         return "猛锤";
+    }
+
+    @Override
+    public int getBaseDamage() {
+        return 5;
     }
 }

@@ -8,18 +8,28 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class MultipleHitCard extends NormalCard {
     @Override
+    public int getCardCode() {
+        return 5;
+    }
+
+    @Override
     public String getDescribe() {
-        return "对敌人造成2次伤害，每次伤害数值为1";
+        return "对敌人造成2次伤害，每次伤害数值为"+damage;
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        accepter.reduceHp(1);
-        accepter.reduceHp(1);
+        accepter.reduceHp(damage);
+        accepter.reduceHp(damage);
     }
 
     @Override
     public String getName() {
         return "多次打击";
+    }
+
+    @Override
+    public int getBaseDamage() {
+        return 1;
     }
 }

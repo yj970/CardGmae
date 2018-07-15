@@ -8,6 +8,11 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class PerfectCubeCard extends TarpCard {
     @Override
+    public int getCardCode() {
+        return 8;
+    }
+
+    @Override
     public String getDescribe() {
         return "抵挡敌人的普通卡伤害1次";
     }

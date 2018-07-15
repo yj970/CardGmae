@@ -8,13 +8,18 @@ import com.yj.cardgame.character.AbstractCharacter;
  */
 public class AttackCard extends NormalCard {
     @Override
+    public int getCardCode() {
+        return 1;
+    }
+
+    @Override
     public String getDescribe() {
-        return "对敌人造成3点伤害";
+        return "对敌人造成"+damage+"点伤害";
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        accepter.reduceHp(3);
+        accepter.reduceHp(damage);
     }
 
     @Override
@@ -22,4 +27,9 @@ public class AttackCard extends NormalCard {
         return "攻击卡";
     }
 
+
+    @Override
+    public int getBaseDamage() {
+        return 3;
+    }
 }

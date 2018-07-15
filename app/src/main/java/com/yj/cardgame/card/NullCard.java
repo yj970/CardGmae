@@ -8,6 +8,11 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class NullCard extends AbstractCard {
     @Override
+    public int getCardCode() {
+        return 0;
+    }
+
+    @Override
     public String getDescribe() {
         return "空卡，一旦卡牌被使用，就会变成空卡";
     }

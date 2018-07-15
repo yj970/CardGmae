@@ -8,6 +8,11 @@ import com.yj.cardgame.character.AbstractCharacter;
 
 public class ReflexCard extends TarpCard {
     @Override
+    public int getCardCode() {
+        return 9;
+    }
+
+    @Override
     public String getDescribe() {
         return "对敌人造成等额的伤害";
     }

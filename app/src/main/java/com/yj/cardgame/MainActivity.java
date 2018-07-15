@@ -55,6 +55,22 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     Monster monster;
     Player player;
 
+    @BindView(R.id.player_equipment_1)
+    TextView playerEquipment1;
+    @BindView(R.id.player_equipment_2)
+    TextView playerEquipment2;
+    @BindView(R.id.player_equipment_3)
+    TextView playerEquipment3;
+    @BindView(R.id.player_equipment_4)
+    TextView playerEquipment4;
+    @BindView(R.id.monster_equipment_1)
+    TextView monsterEquipment1;
+    @BindView(R.id.monster_equipment_2)
+    TextView monsterEquipment2;
+    @BindView(R.id.monster_equipment_3)
+    TextView monsterEquipment3;
+    @BindView(R.id.monster_equipment_4)
+    TextView monsterEquipment4;
 
 
     @Override
@@ -68,10 +84,28 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         player_card_3.setOnLongClickListener(this);
         player_card_4.setOnLongClickListener(this);
 
+        monsterEquipment1.setOnLongClickListener(this);
+        monsterEquipment2.setOnLongClickListener(this);
+        monsterEquipment3.setOnLongClickListener(this);
+        monsterEquipment4.setOnLongClickListener(this);
+        playerEquipment1.setOnLongClickListener(this);
+        playerEquipment2.setOnLongClickListener(this);
+        playerEquipment3.setOnLongClickListener(this);
+        playerEquipment4.setOnLongClickListener(this);
+
         player_card_1.setOnTouchListener(this);
         player_card_2.setOnTouchListener(this);
         player_card_3.setOnTouchListener(this);
         player_card_4.setOnTouchListener(this);
+
+        monsterEquipment1.setOnTouchListener(this);
+        monsterEquipment2.setOnTouchListener(this);
+        monsterEquipment3.setOnTouchListener(this);
+        monsterEquipment4.setOnTouchListener(this);
+        playerEquipment1.setOnTouchListener(this);
+        playerEquipment2.setOnTouchListener(this);
+        playerEquipment3.setOnTouchListener(this);
+        playerEquipment4.setOnTouchListener(this);
 
 
         Game.start();
@@ -87,8 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         // update View
         monster_name.setText(monster.getName());
         player_name.setText(player.getName());
-        monsterCardGroup.setText("剩余卡牌"+monster.getCardGroupNum() + "张");
-        playerCardGroup.setText("剩余卡牌"+player.getCardGroupNum() + "张");
+        monsterCardGroup.setText("剩余卡牌" + monster.getCardGroupNum() + "张");
+        playerCardGroup.setText("剩余卡牌" + player.getCardGroupNum() + "张");
 
 
         monster_card_1.setText(monster.getCards()[0].getName());
@@ -111,8 +145,29 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         player_card_4.setVisibility(player.getCards()[3] instanceof NullCard ? View.GONE : View.VISIBLE);
 
 
-        monster_hp.setText("hp:"+monster.getHp() + "/" + monster.getMaxHp());
-        player_hp.setText("hp:"+player.getHp() + "/" + player.getMaxHp());
+        monsterEquipment1.setText(monster.getEquipment(0).getName());
+        monsterEquipment2.setText(monster.getEquipment(1).getName());
+        monsterEquipment3.setText(monster.getEquipment(2).getName());
+        monsterEquipment4.setText(monster.getEquipment(3).getName());
+        playerEquipment1.setText(player.getEquipment(0).getName());
+        playerEquipment2.setText(player.getEquipment(1).getName());
+        playerEquipment3.setText(player.getEquipment(2).getName());
+        playerEquipment4.setText(player.getEquipment(3).getName());
+
+
+        // 是否显示装备卡
+        monsterEquipment1.setVisibility(monster.getEquipment(0) instanceof NullCard ? View.GONE : View.VISIBLE);
+        monsterEquipment2.setVisibility(monster.getEquipment(1) instanceof NullCard ? View.GONE : View.VISIBLE);
+        monsterEquipment3.setVisibility(monster.getEquipment(2) instanceof NullCard ? View.GONE : View.VISIBLE);
+        monsterEquipment4.setVisibility(monster.getEquipment(3) instanceof NullCard ? View.GONE : View.VISIBLE);
+        playerEquipment1.setVisibility(player.getEquipment(0) instanceof NullCard ? View.GONE : View.VISIBLE);
+        playerEquipment2.setVisibility(player.getEquipment(1) instanceof NullCard ? View.GONE : View.VISIBLE);
+        playerEquipment3.setVisibility(player.getEquipment(2) instanceof NullCard ? View.GONE : View.VISIBLE);
+        playerEquipment4.setVisibility(player.getEquipment(3) instanceof NullCard ? View.GONE : View.VISIBLE);
+
+
+        monster_hp.setText("hp:" + monster.getHp() + "/" + monster.getMaxHp());
+        player_hp.setText("hp:" + player.getHp() + "/" + player.getMaxHp());
 
         // 判断是否结束
         if (isGameOver()) {
@@ -253,6 +308,30 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
                 break;
             case R.id.player_card_4:
                 describe = player.getCard(3).getDescribe();
+                break;
+            case R.id.monster_equipment_1:
+                describe = monster.getEquipment(0).getDescribe();
+                break;
+            case R.id.monster_equipment_2:
+                describe = monster.getEquipment(1).getDescribe();
+                break;
+            case R.id.monster_equipment_3:
+                describe = monster.getEquipment(2).getDescribe();
+                break;
+            case R.id.monster_equipment_4:
+                describe = monster.getEquipment(3).getDescribe();
+                break;
+            case R.id.player_equipment_1:
+                describe = player.getEquipment(0).getDescribe();
+                break;
+            case R.id.player_equipment_2:
+                describe = player.getEquipment(1).getDescribe();
+                break;
+            case R.id.player_equipment_3:
+                describe = player.getEquipment(2).getDescribe();
+                break;
+            case R.id.player_equipment_4:
+                describe = player.getEquipment(3).getDescribe();
                 break;
         }
         tvCardDescribe.setText(describe);

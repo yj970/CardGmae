@@ -7,6 +7,14 @@ import com.yj.cardgame.character.AbstractCharacter;
  */
 public abstract class AbstractCard {
 
+    private int cardCode;
+
+    public AbstractCard() {
+        cardCode = getCardCode();
+    }
+
+    public abstract int getCardCode();
+
     public abstract String getDescribe();
 
     public abstract void use(AbstractCharacter user, AbstractCharacter accepter);

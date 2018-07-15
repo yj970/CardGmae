@@ -7,5 +7,7 @@ import com.yj.cardgame.card.AbstractCard;
  */
 
 public abstract class TarpCard extends AbstractCard {
-
+    public TarpCard() {
+        super();
+    }
 }
