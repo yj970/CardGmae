@@ -3,16 +3,18 @@ package com.yj.cardgame.character;
 import android.util.Log;
 
 import com.yj.cardgame.Game;
+import com.yj.cardgame.buff.AbstractBuff;
 import com.yj.cardgame.card.AbstractCard;
 import com.yj.cardgame.card.NullCard;
-import com.yj.cardgame.card.normalCard.NormalCard;
-import com.yj.cardgame.config.CardConfig;
 import com.yj.cardgame.card.equipmentCard.EquipmentCard;
-import com.yj.cardgame.state.AbstractState;
+import com.yj.cardgame.card.normalCard.NormalCard;
+import com.yj.cardgame.card.normalCard.TempNormalCard;
+import com.yj.cardgame.config.CardConfig;
 import com.yj.cardgame.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -31,8 +33,9 @@ public abstract class AbstractCharacter {
     private NullCard nullCard = new NullCard();// 空牌
     private ArrayList<Integer> cardGroupIndexList = new ArrayList<>(); // 卡组索引
     private List<AbstractCard> cardGroupList = new ArrayList<>(); // 卡组
+    private TempNormalCard tempNormalCard = new TempNormalCard();// 临时普通卡
 
-    private ArrayList<AbstractState> states;// 状态
+    private ArrayList<AbstractBuff> buffs;// 状态
 
     public AbstractCharacter() {
         maxHp = getMaxHp();
@@ -48,7 +51,7 @@ public abstract class AbstractCharacter {
         }
         cards = nullCards.clone();
         equipments = nullCards.clone();
-        states = new ArrayList();
+        buffs = new ArrayList();
         // 设置卡组索引
         setCardGroupIndex(cardGroupIndexList);
         // 根据卡组索引，拿到对应的卡牌，添加进卡组
@@ -92,6 +95,16 @@ public abstract class AbstractCharacter {
 
     public void reduceHp(int num) {
         hp-=num;
+        if (hp <=0) {
+            hp = 0;
+        }
+    }
+
+    public void addHp(int num) {
+        hp+=num;
+        if (hp >= maxHp) {
+            hp = maxHp;
+        }
     }
 
     public void useCard(int position) {
@@ -110,12 +123,12 @@ public abstract class AbstractCharacter {
         // 如果是普通牌，则进行遍历状态
         if (usedCard instanceof NormalCard) {
             // 使用者的状态
-            for (AbstractState state : states) {
+            for (AbstractBuff state : buffs) {
                 state.use((NormalCard) usedCard, user, accept);
             }
             // 接收者的状态
-            List<AbstractState> tempStates = accept.getAllStates();
-            for (AbstractState state : tempStates) {
+            List<AbstractBuff> tempStates = accept.getAllStates();
+            for (AbstractBuff state : tempStates) {
                 state.use((NormalCard) usedCard, user, accept);
             }
         }
@@ -215,8 +228,9 @@ public abstract class AbstractCharacter {
     /**
      * 添加状态
      */
-    public void addState(AbstractState state) {
-        states.add(state);
+    public void addState(AbstractBuff state) {
+        // todo 若已有次buff，holdTurn+1
+        buffs.add(state);
     }
 
     /**
@@ -246,11 +260,47 @@ public abstract class AbstractCharacter {
      * 获取状态
      * @return
      */
-    public AbstractState getStates(int i) {
-        return states.get(i);
+    public AbstractBuff getStates(int i) {
+        if (buffs.size() <= i) {
+            return null;
+        }
+        return buffs.get(i);
     }
 
-    public List<AbstractState> getAllStates() {
-        return states;
+    public List<AbstractBuff> getAllStates() {
+        return buffs;
+    }
+
+    /**
+     * 回合开始
+     */
+    public void startTurn() {
+        AbstractCharacter user;
+        AbstractCharacter accept;
+        if (this instanceof Player) {
+            user = Game.player;
+            accept = Game.monster;
+        } else {
+            user = Game.monster;
+            accept = Game.player;
+        }
+        // buff发动、buff持续回合全部减1
+        Iterator iterator =  buffs.iterator();
+        while (iterator.hasNext()) {
+            AbstractBuff buff = (AbstractBuff) iterator.next();
+            buff.use(tempNormalCard, user, accept);
+            buff.reduceTurn();
+            if (buff.isClear()) {
+                Log.d("MyTAG", user.getName()+"移除"+buff.getName());
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
+     * 回合结束
+     */
+    public void endTurn() {
+
     }
 }

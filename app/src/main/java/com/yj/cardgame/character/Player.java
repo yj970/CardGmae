@@ -14,7 +14,7 @@ public class Player extends AbstractCharacter {
 
     @Override
     public int getMaxHp() {
-        return 30;
+        return 3000;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class Player extends AbstractCharacter {
         cardGroupList.add(1);
         cardGroupList.add(1);
         cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(2);
+        cardGroupList.add(8);
+        cardGroupList.add(9);
         cardGroupList.add(3);
         cardGroupList.add(4);
         cardGroupList.add(5);

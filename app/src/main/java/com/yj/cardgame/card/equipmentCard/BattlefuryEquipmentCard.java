@@ -1,7 +1,7 @@
 package com.yj.cardgame.card.equipmentCard;
 
 import com.yj.cardgame.character.AbstractCharacter;
-import com.yj.cardgame.state.BattlefuryState;
+import com.yj.cardgame.buff.BattlefuryBuff;
 
 /**
  * Created by yangjie on 2018/7/14.
@@ -21,7 +21,7 @@ public class BattlefuryEquipmentCard extends EquipmentCard {
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
         user.addEquipment(this);
-        user.addState(new BattlefuryState(user));
+        user.addState(new BattlefuryBuff(user, 9999));
     }
 
     @Override

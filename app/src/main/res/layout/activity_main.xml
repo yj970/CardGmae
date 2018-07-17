@@ -308,5 +308,167 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/monster_equipment_3" />
 
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_1" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_2" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_3" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_4" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_5" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_6" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/player_buff_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/player_buff_7" />
+
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_1"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_2"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_3"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_4"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_5"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_6"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:background="@drawable/bg_frame"
+        android:id="@+id/monster_buff_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/monster_buff_7"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

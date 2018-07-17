@@ -1,5 +1,6 @@
 package com.yj.cardgame.card.trapCard;
 
+import com.yj.cardgame.buff.PerfectCubeBuff;
 import com.yj.cardgame.character.AbstractCharacter;
 
 /**
@@ -19,7 +20,8 @@ public class PerfectCubeCard extends TarpCard {
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        // TODO: 2018/7/14
+        user.addState(new PerfectCubeBuff(user));
+
     }
 
     @Override

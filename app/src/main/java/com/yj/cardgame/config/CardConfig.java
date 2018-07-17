@@ -16,6 +16,7 @@ import com.yj.cardgame.card.normalCard.FastHitCard;
 import com.yj.cardgame.card.normalCard.HammerHitCard;
 import com.yj.cardgame.card.normalCard.MultipleHitCard;
 import com.yj.cardgame.card.normalCard.NormalCard;
+import com.yj.cardgame.card.normalCard.TempNormalCard;
 import com.yj.cardgame.card.trapCard.PerfectCubeCard;
 import com.yj.cardgame.card.trapCard.ReflexCard;
 import com.yj.cardgame.card.trapCard.TarpCard;
@@ -32,6 +33,7 @@ public class CardConfig {
     static HashMap<Integer, Class> cardMap = new HashMap<>();
 
     static {
+        cardMap.put(-1, TempNormalCard.class);
         cardMap.put(0, NullCard.class);
         cardMap.put(1, AttackCard.class);
         cardMap.put(2, ChaosHitCard.class);
@@ -47,7 +49,7 @@ public class CardConfig {
 
 
         // test 输出卡牌名字和效果
-        for (int i =0; i<cardMap.size();i++) {
+        for (int i =-1; i<cardMap.size()-1;i++) {
             String type = null;
             try {
                 if (cardMap.get(i).newInstance() instanceof NormalCard) {

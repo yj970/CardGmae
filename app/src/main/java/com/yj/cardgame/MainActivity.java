@@ -13,6 +13,9 @@ import com.yj.cardgame.character.Monster;
 import com.yj.cardgame.character.Player;
 import com.yj.cardgame.util.ToastUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,6 +74,48 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     TextView monsterEquipment3;
     @BindView(R.id.monster_equipment_4)
     TextView monsterEquipment4;
+    @BindView(R.id.textView6)
+    TextView textView6;
+    @BindView(R.id.player_buff_1)
+    TextView playerBuff1;
+    @BindView(R.id.player_buff_2)
+    TextView playerBuff2;
+    @BindView(R.id.player_buff_3)
+    TextView playerBuff3;
+    @BindView(R.id.player_buff_4)
+    TextView playerBuff4;
+    @BindView(R.id.player_buff_5)
+    TextView playerBuff5;
+    @BindView(R.id.player_buff_6)
+    TextView playerBuff6;
+    @BindView(R.id.player_buff_7)
+    TextView playerBuff7;
+    @BindView(R.id.player_buff_8)
+    TextView playerBuff8;
+    @BindView(R.id.monster_buff_1)
+    TextView monsterBuff1;
+    @BindView(R.id.monster_buff_2)
+    TextView monsterBuff2;
+    @BindView(R.id.monster_buff_3)
+    TextView monsterBuff3;
+    @BindView(R.id.monster_buff_4)
+    TextView monsterBuff4;
+    @BindView(R.id.monster_buff_5)
+    TextView monsterBuff5;
+    @BindView(R.id.monster_buff_6)
+    TextView monsterBuff6;
+    @BindView(R.id.monster_buff_7)
+    TextView monsterBuff7;
+    @BindView(R.id.monster_buff_8)
+    TextView monsterBuff8;
+
+    
+    List<Button> playerCards;
+    List<Button> monsterCards;
+    List<TextView> playerEquipments;
+    List<TextView> monsterEquipments;
+    List<TextView> playerBuffs;
+    List<TextView> monsterBuffs;
 
 
     @Override
@@ -79,33 +124,83 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        player_card_1.setOnLongClickListener(this);
-        player_card_2.setOnLongClickListener(this);
-        player_card_3.setOnLongClickListener(this);
-        player_card_4.setOnLongClickListener(this);
+        playerCards = new ArrayList<>(4);
+        playerCards.add(player_card_1);
+        playerCards.add(player_card_2);
+        playerCards.add(player_card_3);
+        playerCards.add(player_card_4);
 
-        monsterEquipment1.setOnLongClickListener(this);
-        monsterEquipment2.setOnLongClickListener(this);
-        monsterEquipment3.setOnLongClickListener(this);
-        monsterEquipment4.setOnLongClickListener(this);
-        playerEquipment1.setOnLongClickListener(this);
-        playerEquipment2.setOnLongClickListener(this);
-        playerEquipment3.setOnLongClickListener(this);
-        playerEquipment4.setOnLongClickListener(this);
+        monsterCards = new ArrayList<>(4);
+        monsterCards.add(monster_card_1);
+        monsterCards.add(monster_card_2);
+        monsterCards.add(monster_card_3);
+        monsterCards.add(monster_card_4);
 
-        player_card_1.setOnTouchListener(this);
-        player_card_2.setOnTouchListener(this);
-        player_card_3.setOnTouchListener(this);
-        player_card_4.setOnTouchListener(this);
+        playerEquipments = new ArrayList<>(4);
+        playerEquipments.add(playerEquipment1);
+        playerEquipments.add(playerEquipment2);
+        playerEquipments.add(playerEquipment3);
+        playerEquipments.add(playerEquipment4);
 
-        monsterEquipment1.setOnTouchListener(this);
-        monsterEquipment2.setOnTouchListener(this);
-        monsterEquipment3.setOnTouchListener(this);
-        monsterEquipment4.setOnTouchListener(this);
-        playerEquipment1.setOnTouchListener(this);
-        playerEquipment2.setOnTouchListener(this);
-        playerEquipment3.setOnTouchListener(this);
-        playerEquipment4.setOnTouchListener(this);
+        monsterEquipments = new ArrayList<>(4);
+        monsterEquipments.add(monsterEquipment1);
+        monsterEquipments.add(monsterEquipment2);
+        monsterEquipments.add(monsterEquipment3);
+        monsterEquipments.add(monsterEquipment4);
+
+        playerBuffs = new ArrayList<>(8);
+        playerBuffs.add(playerBuff1);
+        playerBuffs.add(playerBuff2);
+        playerBuffs.add(playerBuff3);
+        playerBuffs.add(playerBuff4);
+        playerBuffs.add(playerBuff5);
+        playerBuffs.add(playerBuff6);
+        playerBuffs.add(playerBuff7);
+        playerBuffs.add(playerBuff8);
+
+        monsterBuffs = new ArrayList<>(8);
+        monsterBuffs.add(monsterBuff1);
+        monsterBuffs.add(monsterBuff2);
+        monsterBuffs.add(monsterBuff3);
+        monsterBuffs.add(monsterBuff4);
+        monsterBuffs.add(monsterBuff5);
+        monsterBuffs.add(monsterBuff6);
+        monsterBuffs.add(monsterBuff7);
+        monsterBuffs.add(monsterBuff8);
+
+
+
+        for (int i = 0; i< playerCards.size(); i++) {
+            playerCards.get(i).setOnLongClickListener(this);
+            playerCards.get(i).setOnTouchListener(this);
+        }
+
+        for (int i = 0; i< monsterCards.size(); i++) {
+            monsterCards.get(i).setOnLongClickListener(this);
+            monsterCards.get(i).setOnTouchListener(this);
+        }
+
+
+        for (int i = 0; i < monsterEquipments.size(); i++) {
+            monsterEquipments.get(i).setOnLongClickListener(this);
+            monsterEquipments.get(i).setOnTouchListener(this);
+        }
+
+        for (int i = 0; i < playerEquipments.size(); i++) {
+            playerEquipments.get(i).setOnLongClickListener(this);
+            playerEquipments.get(i).setOnTouchListener(this);
+        }
+
+        for (int i = 0; i < monsterBuffs.size(); i++) {
+            monsterBuffs.get(i).setOnLongClickListener(this);
+            monsterBuffs.get(i).setOnTouchListener(this);
+        }
+
+        for (int i = 0; i < playerBuffs.size(); i++) {
+            playerBuffs.get(i).setOnLongClickListener(this);
+            playerBuffs.get(i).setOnTouchListener(this);
+        }
+
 
 
         Game.start();
@@ -124,46 +219,42 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         monsterCardGroup.setText("剩余卡牌" + monster.getCardGroupNum() + "张");
         playerCardGroup.setText("剩余卡牌" + player.getCardGroupNum() + "张");
 
+        for (int i = 0; i < monsterCards.size(); i++) {
+            monsterCards.get(i).setText(monster.getCards()[i].getName());
+            monsterCards.get(i).setVisibility(monster.getCards()[i] instanceof NullCard ? View.GONE : View.VISIBLE);
+            monsterCards.get(i).setTag(monster.getCards()[i].getDescribe());
+        }
 
-        monster_card_1.setText(monster.getCards()[0].getName());
-        monster_card_2.setText(monster.getCards()[1].getName());
-        monster_card_3.setText(monster.getCards()[2].getName());
-        monster_card_4.setText(monster.getCards()[3].getName());
-        player_card_1.setText(player.getCards()[0].getName());
-        player_card_2.setText(player.getCards()[1].getName());
-        player_card_3.setText(player.getCards()[2].getName());
-        player_card_4.setText(player.getCards()[3].getName());
+        for (int i = 0; i < playerCards.size(); i++) {
+            playerCards.get(i).setText(player.getCards()[i].getName());
+            playerCards.get(i).setVisibility(player.getCards()[i] instanceof NullCard ? View.GONE : View.VISIBLE);
+            playerCards.get(i).setTag(player.getCards()[i].getDescribe());
+        }
 
-        // 是否显示卡牌
-        monster_card_1.setVisibility(monster.getCards()[0] instanceof NullCard ? View.GONE : View.VISIBLE);
-        monster_card_2.setVisibility(monster.getCards()[1] instanceof NullCard ? View.GONE : View.VISIBLE);
-        monster_card_3.setVisibility(monster.getCards()[2] instanceof NullCard ? View.GONE : View.VISIBLE);
-        monster_card_4.setVisibility(monster.getCards()[3] instanceof NullCard ? View.GONE : View.VISIBLE);
-        player_card_1.setVisibility(player.getCards()[0] instanceof NullCard ? View.GONE : View.VISIBLE);
-        player_card_2.setVisibility(player.getCards()[1] instanceof NullCard ? View.GONE : View.VISIBLE);
-        player_card_3.setVisibility(player.getCards()[2] instanceof NullCard ? View.GONE : View.VISIBLE);
-        player_card_4.setVisibility(player.getCards()[3] instanceof NullCard ? View.GONE : View.VISIBLE);
+        for (int i = 0; i < monsterEquipments.size(); i++) {
+            monsterEquipments.get(i).setText(monster.getEquipment(i).getName());
+            monsterEquipments.get(i).setVisibility(monster.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
+            monsterEquipments.get(i).setTag(monster.getEquipment(i).getDescribe());
+        }
 
+        for (int i = 0; i < playerEquipments.size(); i++) {
+            playerEquipments.get(i).setText(player.getEquipment(i).getName());
+            playerEquipments.get(i).setVisibility(player.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
+            playerEquipments.get(i).setTag(player.getEquipment(i).getDescribe());
+        }
 
-        monsterEquipment1.setText(monster.getEquipment(0).getName());
-        monsterEquipment2.setText(monster.getEquipment(1).getName());
-        monsterEquipment3.setText(monster.getEquipment(2).getName());
-        monsterEquipment4.setText(monster.getEquipment(3).getName());
-        playerEquipment1.setText(player.getEquipment(0).getName());
-        playerEquipment2.setText(player.getEquipment(1).getName());
-        playerEquipment3.setText(player.getEquipment(2).getName());
-        playerEquipment4.setText(player.getEquipment(3).getName());
+        for (int i = 0; i < monsterBuffs.size(); i++) {
+            monsterBuffs.get(i).setText(monster.getStates(i) == null ? "" : monster.getStates(i).getName());
+            monsterBuffs.get(i).setVisibility(monster.getStates(i) == null ? View.GONE : View.VISIBLE);
+            monsterBuffs.get(i).setTag(monster.getStates(i) == null? "" : monster.getStates(i).getDescribe());
+        }
 
-
-        // 是否显示装备卡
-        monsterEquipment1.setVisibility(monster.getEquipment(0) instanceof NullCard ? View.GONE : View.VISIBLE);
-        monsterEquipment2.setVisibility(monster.getEquipment(1) instanceof NullCard ? View.GONE : View.VISIBLE);
-        monsterEquipment3.setVisibility(monster.getEquipment(2) instanceof NullCard ? View.GONE : View.VISIBLE);
-        monsterEquipment4.setVisibility(monster.getEquipment(3) instanceof NullCard ? View.GONE : View.VISIBLE);
-        playerEquipment1.setVisibility(player.getEquipment(0) instanceof NullCard ? View.GONE : View.VISIBLE);
-        playerEquipment2.setVisibility(player.getEquipment(1) instanceof NullCard ? View.GONE : View.VISIBLE);
-        playerEquipment3.setVisibility(player.getEquipment(2) instanceof NullCard ? View.GONE : View.VISIBLE);
-        playerEquipment4.setVisibility(player.getEquipment(3) instanceof NullCard ? View.GONE : View.VISIBLE);
+        for (int i = 0; i < playerBuffs.size(); i++) {
+            playerBuffs.get(i).setText(player.getStates(i) == null ? "" : player.getStates(i).getName());
+            playerBuffs.get(i).setVisibility(player.getStates(i) == null ? View.GONE : View.VISIBLE);
+            playerBuffs.get(i).setTag(player.getStates(i) == null? "" : player.getStates(i).getDescribe());
+        }
+        
 
 
         monster_hp.setText("hp:" + monster.getHp() + "/" + monster.getMaxHp());
@@ -228,6 +319,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void monsterTurn() {
+        monster.startTurn();
         // 玩家卡牌不可点击(舍弃)
         player.throwAllCard();
         // 结束回合按钮不可点击
@@ -276,6 +368,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void playerTurn() {
+        player.startTurn();
         // 怪兽卡牌不可点击(舍弃)
         monster_card_1.setVisibility(View.GONE);
         monster_card_2.setVisibility(View.GONE);
@@ -295,45 +388,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @Override
     public boolean onLongClick(View v) {
-        String describe = "";
-        switch (v.getId()) {
-            case R.id.player_card_1:
-                describe = player.getCard(0).getDescribe();
-                break;
-            case R.id.player_card_2:
-                describe = player.getCard(1).getDescribe();
-                break;
-            case R.id.player_card_3:
-                describe = player.getCard(2).getDescribe();
-                break;
-            case R.id.player_card_4:
-                describe = player.getCard(3).getDescribe();
-                break;
-            case R.id.monster_equipment_1:
-                describe = monster.getEquipment(0).getDescribe();
-                break;
-            case R.id.monster_equipment_2:
-                describe = monster.getEquipment(1).getDescribe();
-                break;
-            case R.id.monster_equipment_3:
-                describe = monster.getEquipment(2).getDescribe();
-                break;
-            case R.id.monster_equipment_4:
-                describe = monster.getEquipment(3).getDescribe();
-                break;
-            case R.id.player_equipment_1:
-                describe = player.getEquipment(0).getDescribe();
-                break;
-            case R.id.player_equipment_2:
-                describe = player.getEquipment(1).getDescribe();
-                break;
-            case R.id.player_equipment_3:
-                describe = player.getEquipment(2).getDescribe();
-                break;
-            case R.id.player_equipment_4:
-                describe = player.getEquipment(3).getDescribe();
-                break;
-        }
+        String describe = (String) v.getTag();
         tvCardDescribe.setText(describe);
         tvCardDescribe.setVisibility(View.VISIBLE);
         return true;

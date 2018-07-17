@@ -29,8 +29,8 @@ public class Monster extends AbstractCharacter {
 
     @Override
     public void setCardGroupIndex(List<Integer> cardGroupList) {
-        cardGroupList.add(1);
-        cardGroupList.add(1);
+        cardGroupList.add(8);
+        cardGroupList.add(9);
         cardGroupList.add(1);
         cardGroupList.add(1);
         cardGroupList.add(11);

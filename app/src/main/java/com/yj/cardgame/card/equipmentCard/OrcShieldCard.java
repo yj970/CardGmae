@@ -1,7 +1,7 @@
 package com.yj.cardgame.card.equipmentCard;
 
 import com.yj.cardgame.character.AbstractCharacter;
-import com.yj.cardgame.state.OrcShieldState;
+import com.yj.cardgame.buff.OrcShieldBuff;
 
 /**
  * Created by yangjie on 2018/7/14.
@@ -21,7 +21,7 @@ public class OrcShieldCard extends EquipmentCard {
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
         user.addEquipment(this);
-        user.addState(new OrcShieldState(user));
+        user.addState(new OrcShieldBuff(user, 9999));
     }
 
     @Override
