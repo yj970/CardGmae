@@ -24,15 +24,17 @@ public class OrcShieldBuff extends AbstractBuff {
     }
 
     @Override
+    public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        return user != getOwner();
+    }
+
+    @Override
     public String getDescribe() {
         return "抵挡2点伤害";
     }
 
     @Override
-    public void use(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
-        AbstractCharacter owner = getOwner();
-        if (user != owner) {
-            card.decreaseDamage(2);
-        }
+    protected void doBuff(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        card.decreaseDamage(2);
     }
 }

@@ -25,17 +25,18 @@ public class BattlefuryBuff extends AbstractBuff {
     }
 
     @Override
+    public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        return (getOwner() == user) && (card instanceof AttackCard);
+    }
+
+    @Override
     public String getDescribe() {
         return "每使用1次【攻击卡】，抽1张卡";
     }
 
     @Override
-    public void use(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
-        if (getOwner() == user) {
-            if (card instanceof AttackCard) {
-                user.drawCard();
-            }
-        }
+    protected void doBuff(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        user.drawCard();
     }
 
 }

@@ -18,14 +18,17 @@ public class ReflexBuff extends AbstractBuff {
     }
 
     @Override
+    public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        return getOwner() != user;
+    }
+
+    @Override
     public String getDescribe() {
         return "反射等额的伤害";
     }
 
     @Override
-    public void use(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
-        if (getOwner() != user) {
-            user.reduceHp(card.damage);
-        }
+    protected void doBuff(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        user.reduceHp(card.damage);
     }
 }

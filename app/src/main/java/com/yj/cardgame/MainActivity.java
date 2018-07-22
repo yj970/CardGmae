@@ -5,13 +5,27 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yj.cardgame.card.AbstractCard;
 import com.yj.cardgame.card.NullCard;
+import com.yj.cardgame.card.equipmentCard.EquipmentCard;
+import com.yj.cardgame.card.magicCard.MagicCard;
+import com.yj.cardgame.card.normalCard.NormalCard;
+import com.yj.cardgame.card.trapCard.TarpCard;
 import com.yj.cardgame.character.Monster;
 import com.yj.cardgame.character.Player;
+import com.yj.cardgame.eventbus.BuffEffectEventbus;
+import com.yj.cardgame.eventbus.DamageEventbus;
 import com.yj.cardgame.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     @BindView(R.id.monster_buff_8)
     TextView monsterBuff8;
 
-    
+
     List<Button> playerCards;
     List<Button> monsterCards;
     List<TextView> playerEquipments;
@@ -118,11 +132,20 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     List<TextView> monsterBuffs;
 
 
+    boolean isPlayerTurn;
+    boolean isAnimationing;
+    @BindView(R.id.monster_hp_damage)
+    TextView monsterHpDamage;
+    @BindView(R.id.player_hp_damage)
+    TextView playerHpDamage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         playerCards = new ArrayList<>(4);
         playerCards.add(player_card_1);
@@ -169,13 +192,12 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         monsterBuffs.add(monsterBuff8);
 
 
-
-        for (int i = 0; i< playerCards.size(); i++) {
+        for (int i = 0; i < playerCards.size(); i++) {
             playerCards.get(i).setOnLongClickListener(this);
             playerCards.get(i).setOnTouchListener(this);
         }
 
-        for (int i = 0; i< monsterCards.size(); i++) {
+        for (int i = 0; i < monsterCards.size(); i++) {
             monsterCards.get(i).setOnLongClickListener(this);
             monsterCards.get(i).setOnTouchListener(this);
         }
@@ -200,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
             playerBuffs.get(i).setOnLongClickListener(this);
             playerBuffs.get(i).setOnTouchListener(this);
         }
-
+        end.setOnTouchListener(this);
 
 
         Game.start();
@@ -222,39 +244,40 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         for (int i = 0; i < monsterCards.size(); i++) {
             monsterCards.get(i).setText(monster.getCards()[i].getName());
             monsterCards.get(i).setVisibility(monster.getCards()[i] instanceof NullCard ? View.GONE : View.VISIBLE);
-            monsterCards.get(i).setTag(monster.getCards()[i].getDescribe());
+            monsterCards.get(i).setTag(monster.getCards()[i]);
+            setCardBg(monsterCards.get(i));
         }
 
         for (int i = 0; i < playerCards.size(); i++) {
             playerCards.get(i).setText(player.getCards()[i].getName());
             playerCards.get(i).setVisibility(player.getCards()[i] instanceof NullCard ? View.GONE : View.VISIBLE);
-            playerCards.get(i).setTag(player.getCards()[i].getDescribe());
+            playerCards.get(i).setTag(player.getCards()[i]);
+            setCardBg(playerCards.get(i));
         }
 
         for (int i = 0; i < monsterEquipments.size(); i++) {
             monsterEquipments.get(i).setText(monster.getEquipment(i).getName());
             monsterEquipments.get(i).setVisibility(monster.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
-            monsterEquipments.get(i).setTag(monster.getEquipment(i).getDescribe());
+            monsterEquipments.get(i).setTag(monster.getEquipment(i));
         }
 
         for (int i = 0; i < playerEquipments.size(); i++) {
             playerEquipments.get(i).setText(player.getEquipment(i).getName());
             playerEquipments.get(i).setVisibility(player.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
-            playerEquipments.get(i).setTag(player.getEquipment(i).getDescribe());
+            playerEquipments.get(i).setTag(player.getEquipment(i));
         }
 
         for (int i = 0; i < monsterBuffs.size(); i++) {
             monsterBuffs.get(i).setText(monster.getStates(i) == null ? "" : monster.getStates(i).getName());
             monsterBuffs.get(i).setVisibility(monster.getStates(i) == null ? View.GONE : View.VISIBLE);
-            monsterBuffs.get(i).setTag(monster.getStates(i) == null? "" : monster.getStates(i).getDescribe());
+            monsterBuffs.get(i).setTag(monster.getStates(i) == null ? "" : monster.getStates(i));
         }
 
         for (int i = 0; i < playerBuffs.size(); i++) {
             playerBuffs.get(i).setText(player.getStates(i) == null ? "" : player.getStates(i).getName());
             playerBuffs.get(i).setVisibility(player.getStates(i) == null ? View.GONE : View.VISIBLE);
-            playerBuffs.get(i).setTag(player.getStates(i) == null? "" : player.getStates(i).getDescribe());
+            playerBuffs.get(i).setTag(player.getStates(i) == null ? "" : player.getStates(i));
         }
-        
 
 
         monster_hp.setText("hp:" + monster.getHp() + "/" + monster.getMaxHp());
@@ -281,36 +304,36 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
         switch (view.getId()) {
             case R.id.monster_card_1:
+                startCardAnimate(view, false);
                 monster.useCard(0);
-                update();
                 break;
             case R.id.monster_card_2:
+                startCardAnimate(view, false);
                 monster.useCard(1);
-                update();
                 break;
             case R.id.monster_card_3:
+                startCardAnimate(view, false);
                 monster.useCard(2);
-                update();
                 break;
             case R.id.monster_card_4:
+                startCardAnimate(view, false);
                 monster.useCard(3);
-                update();
                 break;
             case R.id.player_card_1:
+                startCardAnimate(view, true);
                 player.useCard(0);
-                update();
                 break;
             case R.id.player_card_2:
+                startCardAnimate(view, true);
                 player.useCard(1);
-                update();
                 break;
             case R.id.player_card_3:
+                startCardAnimate(view, true);
                 player.useCard(2);
-                update();
                 break;
             case R.id.player_card_4:
+                startCardAnimate(view, true);
                 player.useCard(3);
-                update();
                 break;
             case R.id.end:
                 monsterTurn();
@@ -318,7 +341,59 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         }
     }
 
+    private void startCardAnimate(View view, boolean isPlayer) {
+        startCardAnimate(view, isPlayer, null);
+    }
+
+    private void startCardAnimate(View view, boolean isPlayer, final Listener listener) {
+        float y = view.getTranslationY();
+        float offsetY = isPlayer ? y - 100 : y + 100;
+
+        TranslateAnimation animation = new TranslateAnimation(0, 0, y, offsetY);
+        animation.setDuration(700);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimationing = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                isAnimationing = false;
+                update();
+                if (listener != null) {
+                    listener.onAnimationEnd();
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(animation);
+    }
+
+    public void setCardBg(Button card) {
+        if (card.getTag() instanceof NormalCard) {
+            card.setBackgroundResource(R.drawable.bg_normal_card);
+        } else if (card.getTag() instanceof TarpCard) {
+            card.setBackgroundResource(R.drawable.bg_tarp_card);
+        } else if (card.getTag() instanceof EquipmentCard) {
+            card.setBackgroundResource(R.drawable.bg_equipment_card);
+        } else if (card.getTag() instanceof MagicCard) {
+            card.setBackgroundResource(R.drawable.bg_magic_card);
+        } else {
+            card.setBackground(null);
+        }
+    }
+
+    private interface Listener {
+        void onAnimationEnd();
+    }
+
     private void monsterTurn() {
+        isPlayerTurn = false;
         monster.startTurn();
         // 玩家卡牌不可点击(舍弃)
         player.throwAllCard();
@@ -330,44 +405,12 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
         update();
         // 怪兽自动使用卡牌（按顺序使用）
-        if (!isGameOver()) {
-            // performClick必须在UI线程执行，直接通过code执行的并不是在UI线程
-            monster_card_1.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    monster_card_1.performClick();
-                }
-            }, 100);
-        }
-        if (!isGameOver()) {
-            monster_card_2.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    monster_card_2.performClick();
-                }
-            }, 200);
-        }
-        if (!isGameOver()) {
-            monster_card_3.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    monster_card_3.performClick();
-                }
-            }, 300);
-        }
-        if (!isGameOver()) {
-            monster_card_4.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    monster_card_4.performClick();
-                }
-            }, 400);
-        }
-        // 玩家回合
-        playerTurn();
+        monsterAction();
+
     }
 
     private void playerTurn() {
+        isPlayerTurn = true;
         player.startTurn();
         // 怪兽卡牌不可点击(舍弃)
         monster_card_1.setVisibility(View.GONE);
@@ -388,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @Override
     public boolean onLongClick(View v) {
-        String describe = (String) v.getTag();
+        String describe = ((AbstractCard) v.getTag()).getDescribe();
         tvCardDescribe.setText(describe);
         tvCardDescribe.setVisibility(View.VISIBLE);
         return true;
@@ -396,15 +439,173 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        if (!isPlayerTurn || isAnimationing) {
+            return true;
+        }
+
         if (event.getAction() == MotionEvent.ACTION_UP) {
             tvCardDescribe.setVisibility(View.GONE);
         }
         return super.onTouchEvent(event);
     }
 
+
+    private void monsterAction() {
+        if (!isGameOver()) {
+            startCardAnimate(monster_card_1, false, new Listener() {
+                @Override
+                public void onAnimationEnd() {
+                    if (!isGameOver()) {
+                        startCardAnimate(monster_card_2, false, new Listener() {
+                            @Override
+                            public void onAnimationEnd() {
+                                if (!isGameOver()) {
+                                    startCardAnimate(monster_card_3, false, new Listener() {
+                                        @Override
+                                        public void onAnimationEnd() {
+                                            if (!isGameOver()) {
+                                                startCardAnimate(monster_card_4, false, new Listener() {
+                                                    @Override
+                                                    public void onAnimationEnd() {
+// 玩家回合
+                                                        playerTurn();
+                                                    }
+                                                });
+                                                monster.useCard(3);
+                                            }
+                                        }
+                                    });
+                                    monster.useCard(2);
+                                }
+                            }
+                        });
+                        monster.useCard(1);
+                    }
+                }
+            });
+            monster.useCard(0);
+        }
+    }
+
+    // 角色受伤
+    @Subscribe
+    public void onDamage(DamageEventbus damageEventbus) {
+        if (damageEventbus.isPlayer()) {
+            startDamageAnimation(playerHpDamage, damageEventbus.getDamage());
+        } else {
+            startDamageAnimation(monsterHpDamage, damageEventbus.getDamage());
+        }
+    }
+
+    // buff生效
+    @Subscribe
+    public void onBuffEffect(BuffEffectEventbus buffEffectEventbus) {
+        int viewId = buffEffectEventbus.getViewID();
+        for (View v : monsterBuffs) {
+            if (v.getId() == viewId) {
+                startBuffAnimation(v);
+                return;
+            }
+        }
+        for (View v : playerBuffs) {
+            if (v.getId() == viewId) {
+                startBuffAnimation(v);
+                return;
+            }
+        }
+    }
+
+    private void startBuffAnimation(View v) {
+        ScaleAnimation translateAnimation = new ScaleAnimation(1f, 2f, 1f, 2f, v.getWidth()/2, v.getHeight()/2);
+        translateAnimation.setDuration(500);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        v.startAnimation(translateAnimation);
+    }
+
+    private void startDamageAnimation(final TextView view, int damage) {
+        view.setText("-" + damage);
+        AlphaAnimation translateAnimation = new AlphaAnimation(0.9f, 1f);
+        translateAnimation.setDuration(500);
+        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                view.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        view.startAnimation(translateAnimation);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Game.destroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
+    public static int getViewId(boolean isPlayer, int pisition) {
+        if (isPlayer) {
+            switch (pisition) {
+                case 0:
+                    return R.id.player_buff_1;
+                case 1:
+                    return R.id.player_buff_2;
+                case 2:
+                    return R.id.player_buff_3;
+                case 3:
+                    return R.id.player_buff_4;
+                case 4:
+                    return R.id.player_buff_5;
+                case 5:
+                    return R.id.player_buff_6;
+                case 6:
+                    return R.id.player_buff_7;
+                case 7:
+                    return R.id.player_buff_8;
+            }
+        } else {
+            switch (pisition) {
+                case 0:
+                    return R.id.monster_buff_1;
+                case 1:
+                    return R.id.monster_buff_2;
+                case 2:
+                    return R.id.monster_buff_3;
+                case 3:
+                    return R.id.monster_buff_4;
+                case 4:
+                    return R.id.monster_buff_5;
+                case 5:
+                    return R.id.monster_buff_6;
+                case 6:
+                    return R.id.monster_buff_7;
+                case 7:
+                    return R.id.monster_buff_8;
+            }
+        }
+        return -1;
     }
 }

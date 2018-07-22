@@ -19,14 +19,17 @@ public class PerfectCubeBuff extends AbstractBuff {
     }
 
     @Override
+    public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        return  (getOwner() != user);
+    }
+
+    @Override
     public String getDescribe() {
         return "完全抵挡1回合的伤害";
     }
 
     @Override
-    public void use(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
-        if (getOwner() != user) {
-            card.damage = 0;
-        }
+    protected void doBuff(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
+        card.damage = 0;
     }
 }

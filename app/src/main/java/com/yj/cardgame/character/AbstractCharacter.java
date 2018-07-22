@@ -2,6 +2,8 @@ package com.yj.cardgame.character;
 
 import android.util.Log;
 
+import com.yj.cardgame.MainActivity;
+import com.yj.cardgame.eventbus.DamageEventbus;
 import com.yj.cardgame.Game;
 import com.yj.cardgame.buff.AbstractBuff;
 import com.yj.cardgame.card.AbstractCard;
@@ -11,6 +13,8 @@ import com.yj.cardgame.card.normalCard.NormalCard;
 import com.yj.cardgame.card.normalCard.TempNormalCard;
 import com.yj.cardgame.config.CardConfig;
 import com.yj.cardgame.util.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,6 +98,7 @@ public abstract class AbstractCharacter {
     }
 
     public void reduceHp(int num) {
+        EventBus.getDefault().post(new DamageEventbus(num, this));
         hp-=num;
         if (hp <=0) {
             hp = 0;
@@ -229,7 +234,17 @@ public abstract class AbstractCharacter {
      * 添加状态
      */
     public void addState(AbstractBuff state) {
-        // todo 若已有次buff，holdTurn+1
+        // 状态持续回合+1
+        for (AbstractBuff buff : buffs) {
+            if (state.getName().equals(buff.getName())) {
+                buff.addTurn();
+                return;
+            }
+        }
+
+        // 添加状态
+        int size = buffs.size();
+        state.setViewId(MainActivity.getViewId(this instanceof Player, size));
         buffs.add(state);
     }
 
