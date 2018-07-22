@@ -14,7 +14,7 @@ public class Player extends AbstractCharacter {
 
     @Override
     public int getMaxHp() {
-        return 3000;
+        return 30;
     }
 
     @Override
@@ -29,19 +29,27 @@ public class Player extends AbstractCharacter {
 
     @Override
     public void setCardGroupIndex(List<Integer> cardGroupList) {
-//        cardGroupList.add(1);
-//        cardGroupList.add(1);
-//        cardGroupList.add(1);
-//        cardGroupList.add(8);
-//        cardGroupList.add(9);
-//        cardGroupList.add(3);
-//        cardGroupList.add(4);
-//        cardGroupList.add(5);
-//        cardGroupList.add(10);
-
         cardGroupList.add(1);
+        cardGroupList.add(1);
+        cardGroupList.add(1);
+        cardGroupList.add(1);
+        cardGroupList.add(1);
+        cardGroupList.add(1);
+        cardGroupList.add(2);
+        cardGroupList.add(3);
+        cardGroupList.add(4);
+        cardGroupList.add(5);
         cardGroupList.add(8);
-        cardGroupList.add(6);
+        cardGroupList.add(9);
+        cardGroupList.add(3);
+        cardGroupList.add(4);
+        cardGroupList.add(5);
         cardGroupList.add(10);
+
+    }
+
+    @Override
+    public int getImageId() {
+        return 0;
     }
 }

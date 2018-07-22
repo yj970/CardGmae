@@ -1,6 +1,7 @@
 package com.yj.cardgame;
 
 import com.yj.cardgame.character.Monster;
+import com.yj.cardgame.character.PigPigMonster;
 import com.yj.cardgame.character.Player;
 
 /**
@@ -17,7 +18,7 @@ public class Game {
     }
 
     public static void start() {
-        monster = new Monster();
+        monster = new PigPigMonster();
         player = new Player();
     }
 }

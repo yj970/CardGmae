@@ -12,6 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yj.cardgame.buff.AbstractBuff;
 import com.yj.cardgame.card.AbstractCard;
 import com.yj.cardgame.card.NullCard;
 import com.yj.cardgame.card.equipmentCard.EquipmentCard;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @BindView(R.id.monster_name)
     TextView monster_name;
-    @BindView(R.id.player_name)
-    TextView player_name;
+//    @BindView(R.id.player_name)
+//    TextView player_name;
     @BindView(R.id.monster_hp)
     TextView monster_hp;
     @BindView(R.id.player_hp)
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
+
         playerCards = new ArrayList<>(4);
         playerCards.add(player_card_1);
         playerCards.add(player_card_2);
@@ -235,9 +237,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void update() {
+
+        monster_name.setBackgroundResource(monster.getImageId());
         // update View
-        monster_name.setText(monster.getName());
-        player_name.setText(player.getName());
+//        monster_name.setText(monster.getName());
+//        player_name.setText(player.getName());
         monsterCardGroup.setText("剩余卡牌" + monster.getCardGroupNum() + "张");
         playerCardGroup.setText("剩余卡牌" + player.getCardGroupNum() + "张");
 
@@ -431,7 +435,14 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @Override
     public boolean onLongClick(View v) {
-        String describe = ((AbstractCard) v.getTag()).getDescribe();
+        // todo 这里处理不好，暂时这样处理，待优化
+        String describe = null;
+        try {
+            describe = ((AbstractCard) v.getTag()).getDescribe();
+        } catch (Exception e) {
+            e.printStackTrace();
+            describe = ((AbstractBuff) v.getTag()).getDescribe();
+        }
         tvCardDescribe.setText(describe);
         tvCardDescribe.setVisibility(View.VISIBLE);
         return true;
@@ -516,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void startBuffAnimation(View v) {
-        ScaleAnimation translateAnimation = new ScaleAnimation(1f, 2f, 1f, 2f, v.getWidth()/2, v.getHeight()/2);
+        ScaleAnimation translateAnimation = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, v.getWidth()/2, v.getHeight()/2);
         translateAnimation.setDuration(500);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override

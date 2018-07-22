@@ -16,6 +16,7 @@ import com.yj.cardgame.card.normalCard.FastHitCard;
 import com.yj.cardgame.card.normalCard.HammerHitCard;
 import com.yj.cardgame.card.normalCard.MultipleHitCard;
 import com.yj.cardgame.card.normalCard.NormalCard;
+import com.yj.cardgame.card.normalCard.PigAttack;
 import com.yj.cardgame.card.normalCard.TempNormalCard;
 import com.yj.cardgame.card.trapCard.PerfectCubeCard;
 import com.yj.cardgame.card.trapCard.ReflexCard;
@@ -46,6 +47,7 @@ public class CardConfig {
         cardMap.put(9, ReflexCard.class);
         cardMap.put(10, BattlefuryEquipmentCard.class);
         cardMap.put(11, OrcShieldCard.class);
+        cardMap.put(12, PigAttack.class);
 
 
         // test 输出卡牌名字和效果

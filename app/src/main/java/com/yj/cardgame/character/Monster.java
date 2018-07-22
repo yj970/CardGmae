@@ -35,4 +35,9 @@ public class Monster extends AbstractCharacter {
         cardGroupList.add(1);
         cardGroupList.add(11);
     }
+
+    @Override
+    public int getImageId() {
+        return 0;
+    }
 }

@@ -312,6 +312,8 @@ public abstract class AbstractCharacter {
         }
     }
 
+    public abstract int getImageId();
+
     /**
      * 回合结束
      */
