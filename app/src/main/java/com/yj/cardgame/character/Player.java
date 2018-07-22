@@ -45,7 +45,7 @@ public class Player extends AbstractCharacter {
         cardGroupList.add(4);
         cardGroupList.add(5);
         cardGroupList.add(10);
-
+        cardGroupList.add(13);
     }
 
     @Override

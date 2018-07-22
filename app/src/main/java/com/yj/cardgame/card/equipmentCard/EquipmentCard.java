@@ -9,4 +9,6 @@ public abstract class EquipmentCard extends AbstractCard {
     public EquipmentCard() {
         super();
     }
+
+    public abstract int getBuffCode();
 }

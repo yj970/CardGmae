@@ -19,6 +19,11 @@ public class PerfectCubeBuff extends AbstractBuff {
     }
 
     @Override
+    public int getBuffCode() {
+        return 3;
+    }
+
+    @Override
     public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
         return  (getOwner() != user);
     }

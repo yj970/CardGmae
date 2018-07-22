@@ -10,12 +10,14 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yj.cardgame.buff.AbstractBuff;
 import com.yj.cardgame.card.AbstractCard;
 import com.yj.cardgame.card.NullCard;
 import com.yj.cardgame.card.equipmentCard.EquipmentCard;
+import com.yj.cardgame.card.equipmentCard.NullEquipment;
 import com.yj.cardgame.card.magicCard.MagicCard;
 import com.yj.cardgame.card.normalCard.NormalCard;
 import com.yj.cardgame.card.trapCard.TarpCard;
@@ -23,6 +25,7 @@ import com.yj.cardgame.character.Monster;
 import com.yj.cardgame.character.Player;
 import com.yj.cardgame.eventbus.BuffEffectEventbus;
 import com.yj.cardgame.eventbus.DamageEventbus;
+import com.yj.cardgame.media.MediaManager;
 import com.yj.cardgame.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     @BindView(R.id.monster_name)
     TextView monster_name;
-//    @BindView(R.id.player_name)
+    //    @BindView(R.id.player_name)
 //    TextView player_name;
     @BindView(R.id.monster_hp)
     TextView monster_hp;
@@ -139,6 +142,10 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     TextView monsterHpDamage;
     @BindView(R.id.player_hp_damage)
     TextView playerHpDamage;
+    @BindView(R.id.monster_damage)
+    ImageView monsterDamage;
+    @BindView(R.id.player_damage)
+    ImageView playerDamage;
 
 
     @Override
@@ -147,6 +154,9 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+
+        // music
+        MediaManager.onStart(this);
 
 
         playerCards = new ArrayList<>(4);
@@ -236,6 +246,18 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        MediaManager.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MediaManager.onPause();
+    }
+
     private void update() {
 
         monster_name.setBackgroundResource(monster.getImageId());
@@ -261,13 +283,13 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
         for (int i = 0; i < monsterEquipments.size(); i++) {
             monsterEquipments.get(i).setText(monster.getEquipment(i).getName());
-            monsterEquipments.get(i).setVisibility(monster.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
+            monsterEquipments.get(i).setVisibility(monster.getEquipment(i) instanceof NullEquipment ? View.GONE : View.VISIBLE);
             monsterEquipments.get(i).setTag(monster.getEquipment(i));
         }
 
         for (int i = 0; i < playerEquipments.size(); i++) {
             playerEquipments.get(i).setText(player.getEquipment(i).getName());
-            playerEquipments.get(i).setVisibility(player.getEquipment(i) instanceof NullCard ? View.GONE : View.VISIBLE);
+            playerEquipments.get(i).setVisibility(player.getEquipment(i) instanceof NullEquipment ? View.GONE : View.VISIBLE);
             playerEquipments.get(i).setTag(player.getEquipment(i));
         }
 
@@ -502,10 +524,11 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     @Subscribe
     public void onDamage(DamageEventbus damageEventbus) {
         if (damageEventbus.isPlayer()) {
-            startDamageAnimation(playerHpDamage, damageEventbus.getDamage());
+            startDamageAnimation(playerHpDamage, damageEventbus.getDamage(), playerDamage);
         } else {
-            startDamageAnimation(monsterHpDamage, damageEventbus.getDamage());
+            startDamageAnimation(monsterHpDamage, damageEventbus.getDamage(), monsterDamage);
         }
+        MediaManager.playAttack1();
     }
 
     // buff生效
@@ -527,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
     }
 
     private void startBuffAnimation(View v) {
-        ScaleAnimation translateAnimation = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, v.getWidth()/2, v.getHeight()/2);
+        ScaleAnimation translateAnimation = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, v.getWidth() / 2, v.getHeight() / 2);
         translateAnimation.setDuration(500);
         translateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -546,19 +569,21 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         v.startAnimation(translateAnimation);
     }
 
-    private void startDamageAnimation(final TextView view, int damage) {
+    private void startDamageAnimation(final TextView view, int damage, final ImageView damageView) {
         view.setText("-" + damage);
-        AlphaAnimation translateAnimation = new AlphaAnimation(0.9f, 1f);
-        translateAnimation.setDuration(500);
-        translateAnimation.setAnimationListener(new Animation.AnimationListener() {
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.9f, 1f);
+        alphaAnimation.setDuration(500);
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 view.setVisibility(View.VISIBLE);
+                damageView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 view.setVisibility(View.GONE);
+                damageView.setVisibility(View.GONE);
             }
 
             @Override
@@ -566,13 +591,15 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
 
             }
         });
-        view.startAnimation(translateAnimation);
+        view.startAnimation(alphaAnimation);
+        damageView.startAnimation(alphaAnimation);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Game.destroy();
+        MediaManager.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 

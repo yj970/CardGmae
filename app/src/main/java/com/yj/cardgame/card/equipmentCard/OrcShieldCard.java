@@ -28,4 +28,9 @@ public class OrcShieldCard extends EquipmentCard {
     public String getName() {
         return "兽人盾";
     }
+
+    @Override
+    public int getBuffCode() {
+        return 2;
+    }
 }

@@ -24,6 +24,11 @@ public class OrcShieldBuff extends AbstractBuff {
     }
 
     @Override
+    public int getBuffCode() {
+        return 2;
+    }
+
+    @Override
     public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
         return user != getOwner();
     }

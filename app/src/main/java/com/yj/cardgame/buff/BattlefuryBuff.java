@@ -25,6 +25,11 @@ public class BattlefuryBuff extends AbstractBuff {
     }
 
     @Override
+    public int getBuffCode() {
+        return 1;
+    }
+
+    @Override
     public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
         return (getOwner() == user) && (card instanceof AttackCard);
     }

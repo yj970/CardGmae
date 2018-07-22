@@ -18,6 +18,11 @@ public class ReflexBuff extends AbstractBuff {
     }
 
     @Override
+    public int getBuffCode() {
+        return 4;
+    }
+
+    @Override
     public boolean isEffect(NormalCard card, AbstractCharacter user, AbstractCharacter accept) {
         return getOwner() != user;
     }

@@ -56,6 +56,8 @@ public abstract class AbstractBuff {
         }
     }
 
+    public abstract int getBuffCode();
+
     public void addTurn() {
         holdTurn+=1;
     }

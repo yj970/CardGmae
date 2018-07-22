@@ -28,4 +28,9 @@ public class BattlefuryEquipmentCard extends EquipmentCard {
     public String getName() {
         return "狂战斧";
     }
+
+    @Override
+    public int getBuffCode() {
+        return 1;
+    }
 }

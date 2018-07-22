@@ -19,7 +19,7 @@ public class PigAttack extends NormalCard{
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        accepter.reduceHp(2);
+        accepter.reduceHp(damage);
     }
 
     @Override

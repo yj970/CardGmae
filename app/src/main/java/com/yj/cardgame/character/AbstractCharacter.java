@@ -3,6 +3,7 @@ package com.yj.cardgame.character;
 import android.util.Log;
 
 import com.yj.cardgame.MainActivity;
+import com.yj.cardgame.card.equipmentCard.NullEquipment;
 import com.yj.cardgame.eventbus.DamageEventbus;
 import com.yj.cardgame.Game;
 import com.yj.cardgame.buff.AbstractBuff;
@@ -11,7 +12,7 @@ import com.yj.cardgame.card.NullCard;
 import com.yj.cardgame.card.equipmentCard.EquipmentCard;
 import com.yj.cardgame.card.normalCard.NormalCard;
 import com.yj.cardgame.card.normalCard.TempNormalCard;
-import com.yj.cardgame.config.CardConfig;
+import com.yj.cardgame.config.Config;
 import com.yj.cardgame.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,10 +32,12 @@ public abstract class AbstractCharacter {
     private int maxHp; // 最高血量
     private int maxCardNum; // 最大手牌数
     private int maxEquipmentNum; // 最大装备牌数
-    private AbstractCard[] equipments; // 装备容器
+    private EquipmentCard[] equipments; // 装备容器
+    private EquipmentCard[] nullEquipments; // 空装备容器
     private AbstractCard[] cards; // 手牌组
     private AbstractCard[] nullCards;// 空牌组
     private NullCard nullCard = new NullCard();// 空牌
+    private NullEquipment nullEquipment = new NullEquipment(); //空装备
     private ArrayList<Integer> cardGroupIndexList = new ArrayList<>(); // 卡组索引
     private List<AbstractCard> cardGroupList = new ArrayList<>(); // 卡组
     private TempNormalCard tempNormalCard = new TempNormalCard();// 临时普通卡
@@ -53,8 +56,13 @@ public abstract class AbstractCharacter {
         for (int i = 0; i < maxCardNum; i++) {
             nullCards[i] = new NullCard();
         }
+        nullEquipments = new EquipmentCard[maxEquipmentNum];
+        for (int i = 0; i < maxEquipmentNum; i++) {
+            nullEquipments[i] = new NullEquipment();
+        }
+
         cards = nullCards.clone();
-        equipments = nullCards.clone();
+        equipments = nullEquipments.clone();
         buffs = new ArrayList();
         // 设置卡组索引
         setCardGroupIndex(cardGroupIndexList);
@@ -70,7 +78,7 @@ public abstract class AbstractCharacter {
         try {
             cardGroupList.clear();
             for (int i = 0; i < temp.size(); i++) {
-                cardGroupList.add((AbstractCard) CardConfig.getCardClass(temp.get(i)).newInstance());
+                cardGroupList.add((AbstractCard) Config.getCardClass(temp.get(i)).newInstance());
             }
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -188,7 +196,7 @@ public abstract class AbstractCharacter {
             }
         }
         if (!isAdd) {
-            ToastUtil.show("手牌已满，无法加入新卡牌!");
+            ToastUtil.show(this.getName()+"手牌已满，无法加入新卡牌!");
             Log.d("MyTAG", this.getName());
         }
     }
@@ -255,7 +263,7 @@ public abstract class AbstractCharacter {
     public void addEquipment(EquipmentCard card) {
         boolean isAdd = false; // 是否成功加入手牌
         for (int i = 0; i < maxEquipmentNum; i++) {
-            if ((equipments[i] instanceof NullCard)) {
+            if ((equipments[i] instanceof NullEquipment)) {
                 equipments[i] = card;
                 isAdd = true;
                 break;
@@ -319,5 +327,33 @@ public abstract class AbstractCharacter {
      */
     public void endTurn() {
 
+    }
+
+    // todo 优化？？
+    public void removeEquipment() {
+            int size = equipments.length;
+            Random random = new Random();
+            int index= random.nextInt(size);// [0, size)
+            EquipmentCard equipmentCard = equipments[index];
+            for (int i = 0; i < size; i++) {
+                if (!(equipmentCard instanceof NullEquipment)) {
+                    break;
+                }
+                index+=1;
+                if (index >= size) {
+                    index = 0;
+                }
+                equipmentCard = equipments[index];
+            }
+
+            int buffCode = equipmentCard.getBuffCode();
+            equipments[index] = nullEquipment;
+            // 移除buff
+            for (AbstractBuff buff : buffs) {
+                if (buff.getBuffCode() == buffCode) {
+                    buffs.remove(buff);
+                    return;
+                }
+            }
     }
 }
