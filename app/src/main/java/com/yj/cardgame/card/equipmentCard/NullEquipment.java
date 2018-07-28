@@ -31,4 +31,9 @@ public class NullEquipment extends EquipmentCard{
     public String getName() {
         return "空装备牌";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

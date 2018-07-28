@@ -16,7 +16,7 @@ public class PigPigMonster extends Monster{
 
     @Override
     public int getMaxHp() {
-        return 30;
+        return 20;
     }
 
     @Override

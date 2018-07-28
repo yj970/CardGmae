@@ -19,7 +19,7 @@ public class Player extends AbstractCharacter {
 
     @Override
     public int getMaxCardNum() {
-        return 4;
+        return 8;
     }
 
     @Override
@@ -30,22 +30,25 @@ public class Player extends AbstractCharacter {
     @Override
     public void setCardGroupIndex(List<Integer> cardGroupList) {
         cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(1);
-        cardGroupList.add(2);
-        cardGroupList.add(3);
-        cardGroupList.add(4);
-        cardGroupList.add(5);
-        cardGroupList.add(8);
-        cardGroupList.add(9);
-        cardGroupList.add(3);
-        cardGroupList.add(4);
-        cardGroupList.add(5);
-        cardGroupList.add(10);
         cardGroupList.add(13);
+        cardGroupList.add(9);
+        cardGroupList.add(10);
+//        cardGroupList.add(1);
+//        cardGroupList.add(1);
+//        cardGroupList.add(1);
+//        cardGroupList.add(1);
+//        cardGroupList.add(1);
+//        cardGroupList.add(2);
+//        cardGroupList.add(3);
+//        cardGroupList.add(4);
+//        cardGroupList.add(5);
+//        cardGroupList.add(8);
+//        cardGroupList.add(9);
+//        cardGroupList.add(3);
+//        cardGroupList.add(4);
+//        cardGroupList.add(5);
+//        cardGroupList.add(10);
+//        cardGroupList.add(13);
     }
 
     @Override

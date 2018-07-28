@@ -30,6 +30,11 @@ public class ChaosHitCard extends NormalCard {
     }
 
     @Override
+    public int getResId() {
+        return 0;
+    }
+
+    @Override
     public int getBaseDamage() {
         Random random = new Random();
         int result =  random.nextInt(3)+1;// 随机获取[1, 3]区间的值。

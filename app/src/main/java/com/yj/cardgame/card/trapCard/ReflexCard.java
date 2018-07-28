@@ -27,4 +27,9 @@ public class ReflexCard extends TarpCard {
     public String getName() {
         return "镜像反射";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

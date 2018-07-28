@@ -1,6 +1,5 @@
 package com.yj.cardgame.media;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 
 import com.yj.cardgame.APP;
@@ -14,8 +13,8 @@ public class MediaManager {
     static MediaPlayer bgMediaPlayer;
     static MediaPlayer Attach1Player;
 
-    public static void onStart(Context context) {
-        playBgMusic(context);
+    public static void onStart() {
+        playBgMusic();
     }
 
     public static void playAttack1() {
@@ -25,8 +24,8 @@ public class MediaManager {
         Attach1Player.start();
     }
 
-    public static void playBgMusic(Context context) {
-        bgMediaPlayer = MediaPlayer.create(context, R.raw.bg);
+    public static void playBgMusic() {
+        bgMediaPlayer = MediaPlayer.create(APP.getContext(), R.raw.bg);
         bgMediaPlayer.setLooping(true);
         bgMediaPlayer.start();
     }

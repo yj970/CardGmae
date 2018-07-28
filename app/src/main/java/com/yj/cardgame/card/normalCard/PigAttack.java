@@ -28,6 +28,11 @@ public class PigAttack extends NormalCard{
     }
 
     @Override
+    public int getResId() {
+        return 0;
+    }
+
+    @Override
     public int getBaseDamage() {
         return 2;
     }

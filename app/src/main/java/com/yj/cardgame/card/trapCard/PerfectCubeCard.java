@@ -28,4 +28,9 @@ public class PerfectCubeCard extends TarpCard {
     public String getName() {
         return "完美立方体";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

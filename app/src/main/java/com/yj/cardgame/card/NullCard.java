@@ -26,4 +26,9 @@ public class NullCard extends AbstractCard {
     public String getName() {
         return "空卡";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

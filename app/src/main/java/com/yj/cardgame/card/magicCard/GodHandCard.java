@@ -27,4 +27,9 @@ public class GodHandCard extends MagicCard {
     public String getName() {
         return "神来之手";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

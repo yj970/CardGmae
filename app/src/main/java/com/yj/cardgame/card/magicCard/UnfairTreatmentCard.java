@@ -26,4 +26,9 @@ public class UnfairTreatmentCard extends MagicCard {
     public String getName() {
         return "不公平对待";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

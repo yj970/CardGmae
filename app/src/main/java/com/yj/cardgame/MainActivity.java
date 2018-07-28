@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         EventBus.getDefault().register(this);
 
         // music
-        MediaManager.onStart(this);
+        MediaManager.onStart();
 
 
         playerCards = new ArrayList<>(4);
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         end.setOnTouchListener(this);
 
 
-        Game.start();
+//        Game.start();
 
         monster = Game.monster;
         player = Game.player;

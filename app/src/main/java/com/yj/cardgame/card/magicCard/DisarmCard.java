@@ -26,4 +26,9 @@ public class DisarmCard extends MagicCard {
     public String getName() {
         return "缴械";
     }
+
+    @Override
+    public int getResId() {
+        return 0;
+    }
 }

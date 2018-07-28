@@ -70,6 +70,13 @@ public abstract class AbstractCharacter {
         buildCardGroup();
     }
 
+    public void reset() {
+        buildCardGroup();// 洗牌（卡组）
+        cards = nullCards.clone(); // 清空手牌
+        equipments = nullEquipments.clone(); // 清理装备
+        buffs = new ArrayList(); // 清理状态
+    }
+
     // 生成卡组（抽牌堆）
     private void buildCardGroup() {
         // 洗牌

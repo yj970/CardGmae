@@ -27,6 +27,11 @@ public class AttackCard extends NormalCard {
         return "攻击卡";
     }
 
+    @Override
+    public int getResId() {
+        return 0;
+    }
+
 
     @Override
     public int getBaseDamage() {

@@ -30,6 +30,11 @@ public class BattlefuryEquipmentCard extends EquipmentCard {
     }
 
     @Override
+    public int getResId() {
+        return 0;
+    }
+
+    @Override
     public int getBuffCode() {
         return 1;
     }

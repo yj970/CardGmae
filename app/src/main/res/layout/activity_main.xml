@@ -1,503 +1,583 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bg_main">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:background="@mipmap/monster_1"
-        android:id="@+id/monster_name"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/monster_hp"
-        android:layout_width="82dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_frame"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/monster_name"
-        app:layout_constraintStart_toStartOf="@+id/monster_name"
-        app:layout_constraintTop_toBottomOf="@+id/monster_name" />
-
-    <TextView
-        android:id="@+id/player_hp"
-        android:layout_width="82dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="56dp"
-        android:layout_marginEnd="48dp"
-        android:background="@drawable/bg_frame"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/monster_card_2"
-        style="@style/monster_card"
-        android:layout_width="40dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:text="攻击1"
-        app:layout_constraintStart_toEndOf="@+id/monster_card_1"
-        app:layout_constraintTop_toTopOf="@+id/monster_card_1" />
-
-    <Button
-        style="@style/monster_card"
-        android:id="@+id/monster_card_3"
-        android:layout_width="40dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:text="攻击2"
-        app:layout_constraintStart_toEndOf="@+id/monster_card_2"
-        app:layout_constraintTop_toTopOf="@+id/monster_card_2" />
-
-    <Button
-        android:id="@+id/player_card_2"
-        style="@style/card"
-        android:layout_width="46dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="攻击3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_card_3" />
-
-    <Button
-        android:id="@+id/player_card_3"
-        style="@style/card"
-        android:layout_width="46dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="攻击4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_card_4" />
-
-    <Button
-        android:id="@+id/player_card_1"
-        style="@style/card"
-        android:layout_width="46dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_card_2" />
-
-    <Button
-        android:id="@+id/player_card_4"
-        style="@style/card"
-        android:layout_width="46dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/monster_card_1"
-        style="@style/monster_card"
-        android:layout_width="40dp"
-        android:layout_height="80dp"
-        android:text="Button"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <Button
-        style="@style/monster_card"
-        android:id="@+id/monster_card_4"
-        android:layout_width="40dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="8dp"
-        android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/monster_card_3"
-        app:layout_constraintTop_toTopOf="@+id/monster_card_3" />
-
-    <Button
-        android:id="@+id/end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="8dp"
-        android:background="@mipmap/end"
-        android:text="结束回合"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/monster_card_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="208dp"
-        android:background="@drawable/bg_frame"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/player_card_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/bg_frame"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/player_hp"
-        app:layout_constraintEnd_toEndOf="@+id/player_hp"
-        app:layout_constraintStart_toStartOf="@+id/player_hp" />
-
-    <TextView
-        android:padding="5dp"
-        android:visibility="gone"
-        android:id="@+id/tv_card_describe"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_frame"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/end"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/monster_card_1" />
-
-    <TextView
-        android:visibility="gone"
-        android:background="@drawable/bg_frame"
-        android:id="@+id/textView6"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="204dp"
-        android:layout_marginStart="8dp"
-        android:text="游戏说明：\n1.单击使用卡牌\n2.长按卡牌查看卡牌效果"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/player_equipment_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/player_equipment_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_equipment_1" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/player_equipment_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_equipment_2" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/player_equipment_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:layout_marginStart="16dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_equipment_3" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/monster_equipment_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="textview"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/monster_equipment_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="180dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_equipment_1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/monster_equipment_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/monster_equipment_2" />
-
-    <TextView
-        android:background="@drawable/bg_equipment"
-        android:id="@+id/monster_equipment_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/monster_equipment_3" />
-
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_1" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_2" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_3" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_4" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_5" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_6" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/player_buff_8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="160dp"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_buff_7" />
-
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_1"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_2"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_3"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_4"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_5"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_6"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:background="@drawable/bg_buff"
-        android:id="@+id/monster_buff_8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/monster_buff_7"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:textSize="20sp"
-        android:visibility="gone"
-        android:id="@+id/monster_hp_damage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="272dp"
-        android:text="TextView"
-        android:textColor="@color/red"
-        app:layout_constraintStart_toEndOf="@+id/monster_hp"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/player_hp_damage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/red"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/player_hp"
-        app:layout_constraintStart_toEndOf="@+id/player_hp"
-        app:layout_constraintTop_toTopOf="@+id/player_hp" />
-
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/monster_damage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="180dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/damage" />
-
-    <ImageView
-        android:visibility="gone"
-        android:id="@+id/player_damage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="108dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/damage" />
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/c_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/player_hp"
+            android:layout_width="82dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_frame"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/monster_card_2"
+            style="@style/monster_card"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="攻击1"
+            app:layout_constraintStart_toEndOf="@+id/monster_card_1"
+            app:layout_constraintTop_toTopOf="@+id/monster_card_1" />
+
+        <Button
+            android:id="@+id/monster_card_3"
+            style="@style/monster_card"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="攻击2"
+            app:layout_constraintStart_toEndOf="@+id/monster_card_2"
+            app:layout_constraintTop_toTopOf="@+id/monster_card_2" />
+
+        <Button
+            android:id="@+id/monster_card_1"
+            style="@style/monster_card"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:text="Button"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Button
+            android:id="@+id/monster_card_4"
+            style="@style/monster_card"
+            android:layout_width="40dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:text="Button"
+            app:layout_constraintStart_toEndOf="@+id/monster_card_3"
+            app:layout_constraintTop_toTopOf="@+id/monster_card_3" />
+
+        <Button
+            android:id="@+id/end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/end"
+            android:text="结束回合"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/player_hp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/player_hp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/monster_card_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="208dp"
+            android:background="@drawable/bg_frame"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/player_card_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_frame"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/player_hp"
+            app:layout_constraintStart_toStartOf="@+id/player_hp_damage"
+            app:layout_constraintTop_toTopOf="@+id/player_hp" />
+
+        <TextView
+            android:id="@+id/tv_card_describe"
+            android:layout_width="120dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_frame"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/end"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/monster_card_1" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="204dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_frame"
+            android:text="游戏说明：\n1.单击使用卡牌\n2.长按卡牌查看卡牌效果"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/player_equipment_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/player_equipment_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_equipment_1" />
+
+        <TextView
+            android:id="@+id/player_equipment_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_equipment_2" />
+
+        <TextView
+            android:id="@+id/player_equipment_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_equipment_3" />
+
+        <TextView
+            android:id="@+id/monster_equipment_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/bg_equipment"
+            android:text="textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_equipment_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_equipment_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_equipment_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_equipment_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_equipment_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="180dp"
+            android:background="@drawable/bg_equipment"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_equipment_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/player_buff_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/player_buff_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_1" />
+
+        <TextView
+            android:id="@+id/player_buff_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_2" />
+
+        <TextView
+            android:id="@+id/player_buff_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_3" />
+
+        <TextView
+            android:id="@+id/player_buff_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_4" />
+
+        <TextView
+            android:id="@+id/player_buff_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_5" />
+
+        <TextView
+            android:id="@+id/player_buff_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_6" />
+
+        <TextView
+            android:id="@+id/player_buff_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/player_buff_7" />
+
+        <TextView
+            android:id="@+id/monster_buff_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_6"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_buff_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="240dp"
+            android:background="@drawable/bg_buff"
+            android:text="TextView"
+            app:layout_constraintEnd_toStartOf="@+id/monster_buff_7"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/player_hp_damage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/player_hp"
+            app:layout_constraintStart_toEndOf="@+id/player_hp"
+            app:layout_constraintTop_toTopOf="@+id/player_hp" />
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RelativeLayout
+                android:paddingBottom="10dp"
+                android:gravity="bottom"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            <com.yj.cardgame.view.CardView
+                android:id="@+id/player_card_1"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_1"
+                android:id="@+id/player_card_2"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_2"
+                android:id="@+id/player_card_3"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_3"
+                android:id="@+id/player_card_4"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_4"
+                android:id="@+id/player_card_5"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_5"
+                android:id="@+id/player_card_6"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_6"
+                android:id="@+id/player_card_7"
+                android:layout_width="65dp"
+                android:layout_height="120dp" />
+
+            <com.yj.cardgame.view.CardView
+                android:layout_toRightOf="@+id/player_card_7"
+                android:id="@+id/player_card_8"
+                android:layout_width="65dp"
+                android:layout_height="120dp"
+                />
+            </RelativeLayout>
+        </RelativeLayout>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/player_damage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="38dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:src="@mipmap/damage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@mipmap/damage" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/monster_name"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:background="@mipmap/monster_1"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_hp"
+            android:layout_width="82dp"
+            android:layout_height="39dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_frame"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monster_name" />
+
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="248dp"
+            android:background="@mipmap/paper"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="40dp"
+            android:text="突然一只漂漂猪从草丛中蹦出，它看起来很慌张..."
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.415"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/monster_hp_damage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="272dp"
+            android:text="TextView"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/monster_hp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/monster_damage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="180dp"
+            android:src="@mipmap/damage"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@mipmap/damage" />
+        <com.yj.cardgame.view.CardView
+            android:id="@+id/player_big_card"
+            android:layout_width="130dp"
+            android:layout_height="240dp"
+            android:visibility="gone"
+            app:card_name_text_size="14sp"
+            app:card_describe_text_size="11sp"
+            app:card_type_text_size="10sp"
+            />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

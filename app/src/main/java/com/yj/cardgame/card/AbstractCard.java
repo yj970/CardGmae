@@ -21,4 +21,6 @@ public abstract class AbstractCard {
 
     public abstract String getName();
 
+    public abstract int getResId();
+
 }
