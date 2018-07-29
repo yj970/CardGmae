@@ -1,32 +1,33 @@
-package com.yj.cardgame.card.equipmentCard;
+package com.yj.cardgame.card.normalCard;
 
 import com.yj.cardgame.character.AbstractCharacter;
-import com.yj.cardgame.buff.OrcShieldBuff;
 
 /**
- * Created by yangjie on 2018/7/14.
+ * Created by yangjie on 2018/7/29.
  */
 
-public class OrcShieldCard extends EquipmentCard {
+public class KillAttackCard extends NormalCard {
     @Override
     public int getCardCode() {
-        return 11;
+        return 28;
     }
 
     @Override
     public String getDescribe() {
-        return "抵挡2点伤害";
+        return "造成"+damage+", 若杀死敌人, 自身最大生命值+2";
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        super.use(user, accepter);
-        user.addState(new OrcShieldBuff(user, 9999));
-    }
+        accepter.reduceHp(damage);
+        if (accepter.isDead()) {
+            user.addMaxHp(2);
+        }
+     }
 
     @Override
     public String getName() {
-        return "兽人盾";
+        return "斩杀";
     }
 
     @Override
@@ -35,7 +36,7 @@ public class OrcShieldCard extends EquipmentCard {
     }
 
     @Override
-    public int getBuffCode() {
+    public int getBaseDamage() {
         return 2;
     }
 }

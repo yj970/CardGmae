@@ -1,32 +1,32 @@
-package com.yj.cardgame.card.equipmentCard;
+package com.yj.cardgame.card.normalCard;
 
+import com.yj.cardgame.buff.FragileBuff;
 import com.yj.cardgame.character.AbstractCharacter;
-import com.yj.cardgame.buff.BattlefuryBuff;
 
 /**
- * Created by yangjie on 2018/7/14.
+ * Created by yangjie on 2018/7/29.
  */
 
-public class BattlefuryEquipmentCard extends EquipmentCard {
+public class SpearThrowingCard extends NormalCard {
     @Override
     public int getCardCode() {
-        return 10;
+        return 21;
     }
 
     @Override
     public String getDescribe() {
-        return "每使用1次【攻击卡】，抽1张卡";
+        return "造成"+damage+"点伤害, 给予敌人1层脆弱";
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        super.use(user, accepter);
-        user.addState(new BattlefuryBuff(user, 9999));
+        accepter.reduceHp(damage);
+        accepter.addState(new FragileBuff(accepter));
     }
 
     @Override
     public String getName() {
-        return "狂战斧";
+        return "掷矛";
     }
 
     @Override
@@ -35,7 +35,7 @@ public class BattlefuryEquipmentCard extends EquipmentCard {
     }
 
     @Override
-    public int getBuffCode() {
+    public int getBaseDamage() {
         return 1;
     }
 }

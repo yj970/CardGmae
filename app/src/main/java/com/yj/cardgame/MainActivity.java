@@ -306,8 +306,8 @@ public class MainActivity extends AppCompatActivity implements View.OnLongClickL
         }
 
 
-        monster_hp.setText("hp:" + monster.getHp() + "/" + monster.getMaxHp());
-        player_hp.setText("hp:" + player.getHp() + "/" + player.getMaxHp());
+        monster_hp.setText("hp:" + monster.getHp() + "/" + monster.getDefaultMaxHp());
+        player_hp.setText("hp:" + player.getHp() + "/" + player.getDefaultMaxHp());
 
         // 判断是否结束
         if (isGameOver()) {

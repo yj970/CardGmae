@@ -15,7 +15,7 @@ public class PigPigMonster extends Monster{
     }
 
     @Override
-    public int getMaxHp() {
+    public int getDefaultMaxHp() {
         return 20;
     }
 
@@ -42,6 +42,8 @@ public class PigPigMonster extends Monster{
         cardGroupList.add(3);
         cardGroupList.add(5);
         cardGroupList.add(11);
+        cardGroupList.add(14);
+
     }
 
     @Override

@@ -1,32 +1,32 @@
-package com.yj.cardgame.card.equipmentCard;
+package com.yj.cardgame.card.normalCard;
 
+import com.yj.cardgame.buff.WeakBuff;
 import com.yj.cardgame.character.AbstractCharacter;
-import com.yj.cardgame.buff.OrcShieldBuff;
 
 /**
- * Created by yangjie on 2018/7/14.
+ * Created by yangjie on 2018/7/29.
  */
 
-public class OrcShieldCard extends EquipmentCard {
+public class PunishmentHammerCard extends NormalCard {
     @Override
     public int getCardCode() {
-        return 11;
+        return 26;
     }
 
     @Override
     public String getDescribe() {
-        return "抵挡2点伤害";
+        return "造成"+damage+"点伤害, 给予敌人虚弱2回合";
     }
 
     @Override
     public void use(AbstractCharacter user, AbstractCharacter accepter) {
-        super.use(user, accepter);
-        user.addState(new OrcShieldBuff(user, 9999));
+        accepter.reduceHp(damage);
+        accepter.addState(new WeakBuff(accepter, 2));
     }
 
     @Override
     public String getName() {
-        return "兽人盾";
+        return "罚罪之锤";
     }
 
     @Override
@@ -35,7 +35,7 @@ public class OrcShieldCard extends EquipmentCard {
     }
 
     @Override
-    public int getBuffCode() {
+    public int getBaseDamage() {
         return 2;
     }
 }

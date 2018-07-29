@@ -28,6 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:background="@drawable/bg_frame"
+            android:id="@+id/player_armor"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/player_hp"
+            app:layout_constraintBottom_toBottomOf="@+id/player_hp"
+            app:layout_constraintRight_toLeftOf="@+id/player_hp"/>
+
         <Button
             android:id="@+id/monster_card_2"
             style="@style/monster_card"
@@ -522,6 +531,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/monster_name" />
+
+        <TextView
+            android:background="@drawable/bg_frame"
+            android:id="@+id/monster_armor"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/monster_hp"
+            app:layout_constraintBottom_toBottomOf="@+id/monster_hp"
+            app:layout_constraintRight_toLeftOf="@+id/monster_hp"/>
 
         <TextView
             android:id="@+id/describe"

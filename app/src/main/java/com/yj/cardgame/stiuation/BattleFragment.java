@@ -168,6 +168,10 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
     CardView player_card_8;
     @BindView(R.id.player_big_card)
     CardView bigCardView;
+    @BindView(R.id.player_armor)
+    TextView playerArmor;
+    @BindView(R.id.monster_armor)
+    TextView monsterArmor;
 
 
     @Override
@@ -352,8 +356,10 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
 //        player_name.setText(player.getName());
         monsterCardGroup.setText("剩卡" + monster.getCardGroupNum() + "张");
         playerCardGroup.setText("剩卡" + player.getCardGroupNum() + "张");
+        playerArmor.setText("Armor:"+player.getArmor());
+        monsterArmor.setText("Armor:"+monster.getArmor());
 
-        for (int i = 0; i < monsterCards.size(); i++) {
+        for (int i = 0; i <monster.getMaxCardNum(); i++) {
             monsterCards.get(i).setText(monster.getCards()[i].getName());
             monsterCards.get(i).setVisibility(monster.getCards()[i] instanceof NullCard ? View.GONE : View.VISIBLE);
             monsterCards.get(i).setTag(monster.getCards()[i]);
@@ -372,16 +378,16 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
                 playerCardNum++;
             }
         }
-            for (int i = 1; i < playerCards.size(); i++) {
-                ViewGroup.MarginLayoutParams params;
-                params = (ViewGroup.MarginLayoutParams) playerCards.get(i).getLayoutParams();
-                if (playerCardNum <= 4) {
-                    params.setMargins(3 * playerCardNum, 0, 0, 0);
-                } else {
-                    params.setMargins(-10 * playerCardNum, 0, 0, 0);
-                }
-                playerCards.get(i).setLayoutParams(params);
+        for (int i = 1; i < playerCards.size(); i++) {
+            ViewGroup.MarginLayoutParams params;
+            params = (ViewGroup.MarginLayoutParams) playerCards.get(i).getLayoutParams();
+            if (playerCardNum <= 4) {
+                params.setMargins(3 * playerCardNum, 0, 0, 0);
+            } else {
+                params.setMargins(-10 * playerCardNum, 0, 0, 0);
             }
+            playerCards.get(i).setLayoutParams(params);
+        }
 //        for (int i = 0; i < playerCardNum; i++) {
 //            int size = playerCardNum;
 //            playerCards.get(i).setPivotX(playerCards.get(i).getWidth()/2);
@@ -435,7 +441,7 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
         }
     }
 
-    @OnClick({R.id.monster_card_2, R.id.monster_card_3, R.id.player_card_2, R.id.player_card_3, R.id.player_card_1, R.id.player_card_4, R.id.monster_card_1, R.id.monster_card_4, R.id.end, R.id.player_card_5,R.id.player_card_6,R.id.player_card_7,R.id.player_card_8})
+    @OnClick({R.id.monster_card_2, R.id.monster_card_3, R.id.player_card_2, R.id.player_card_3, R.id.player_card_1, R.id.player_card_4, R.id.monster_card_1, R.id.monster_card_4, R.id.end, R.id.player_card_5, R.id.player_card_6, R.id.player_card_7, R.id.player_card_8})
     public void onViewClicked(View view) {
         if (isGameOver()) {
             ToastUtil.show("游戏已经结束啦~退出APP后重新进入可以再次开启游戏~");
@@ -603,10 +609,12 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
 //        }
 //        tvCardDescribe.setText(describe);
 //        tvCardDescribe.setVisibility(View.VISIBLE);
-        if (v instanceof  CardView) {
+        if (v instanceof CardView) {
             float x = v.getX();
-            if (x+bigCardView.getWidth()> DisplayMetricsUtil.getScreenWidth()) {
+            if (x + bigCardView.getWidth() > DisplayMetricsUtil.getScreenWidth()) {
                 x = DisplayMetricsUtil.getScreenWidth() - bigCardView.getWidth();
+            } else if (x < 0) {
+                x = 0;
             }
             bigCardView.setCard((AbstractCard) v.getTag());
             bigCardView.setX(x);
@@ -627,7 +635,9 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
 //            tvCardDescribe.setVisibility(View.GONE);
             if (v instanceof CardView) {
                 bigCardView.setVisibility(View.GONE);
-                v.setVisibility(View.VISIBLE);
+                if (!(v.getTag() instanceof NullCard)) {
+                    v.setVisibility(View.VISIBLE);
+                }
             }
         }
         return false;
@@ -750,7 +760,6 @@ public class BattleFragment extends Fragment implements View.OnLongClickListener
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Game.destroy();
         MediaManager.onDestroy();
         EventBus.getDefault().unregister(this);
     }

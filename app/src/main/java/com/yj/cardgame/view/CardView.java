@@ -84,6 +84,8 @@ public class CardView extends FrameLayout {
         int resId = card.getResId();
         if (resId != 0) {
             ivRes.setImageResource(card.getResId());
+        } else {
+            ivRes.setImageResource(R.mipmap.icon_card_default);
         }
         tvName.setText(card.getName());
         tvDescribe.setText(card.getDescribe());

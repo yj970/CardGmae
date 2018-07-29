@@ -13,7 +13,7 @@ public class Monster extends AbstractCharacter {
     }
 
     @Override
-    public int getMaxHp() {
+    public int getDefaultMaxHp() {
         return 20;
     }
 

@@ -41,15 +41,16 @@ public abstract class AbstractCharacter {
     private ArrayList<Integer> cardGroupIndexList = new ArrayList<>(); // 卡组索引
     private List<AbstractCard> cardGroupList = new ArrayList<>(); // 卡组
     private TempNormalCard tempNormalCard = new TempNormalCard();// 临时普通卡
+    private int armor = 0;// 护盾
 
     private ArrayList<AbstractBuff> buffs;// 状态
 
     public AbstractCharacter() {
-        maxHp = getMaxHp();
+        maxHp = getDefaultMaxHp();
         name = getName();
         maxCardNum = getMaxCardNum();
         maxEquipmentNum = getMaxEquipmentNum();
-        hp = getMaxHp();
+        hp = getDefaultMaxHp();
         cards = new AbstractCard[maxCardNum];
 
         nullCards = new AbstractCard[maxCardNum];
@@ -98,7 +99,7 @@ public abstract class AbstractCharacter {
 
     public abstract String getName();
 
-    public abstract int getMaxHp();
+    public abstract int getDefaultMaxHp();
 
     public abstract int getMaxCardNum();
 
@@ -109,25 +110,43 @@ public abstract class AbstractCharacter {
     }
 
     public boolean isDead() {
-        return  hp <= 0;
+        return hp <= 0;
     }
 
     public void reduceHp(int num) {
         EventBus.getDefault().post(new DamageEventbus(num, this));
-        hp-=num;
-        if (hp <=0) {
+        int realDamage = num;
+        if (armor != 0) {
+            armor = armor - num;
+            if (armor >= 0) {
+                realDamage = 0;
+            } else {
+                realDamage = Math.abs(armor);
+                armor = 0;
+            }
+        }
+        hp -= realDamage;
+        if (hp <= 0) {
             hp = 0;
         }
     }
 
+    public int getArmor() {
+        return armor;
+    }
+
     public void addHp(int num) {
-        hp+=num;
+        hp += num;
         if (hp >= maxHp) {
             hp = maxHp;
         }
     }
 
     public void useCard(int position) {
+        if (position >= cards.length) {
+            Log.d("MyTAG", "无效，超过手牌数");
+            return;
+        }
         AbstractCard usedCard = cards[position];
         cards[position] = nullCard;
 
@@ -160,7 +179,7 @@ public abstract class AbstractCharacter {
         // 使用卡牌效果
         usedCard.use(user, accept);
         // log 日记
-        Log.d("MyTAG", user.getName()+"使用"+usedCard.getName()+" "+accept.getName()+"剩余生命为"+accept.getHp());
+        Log.d("MyTAG", user.getName() + "使用" + usedCard.getName() + " " + accept.getName() + "剩余生命为" + accept.getHp());
     }
 
 
@@ -168,12 +187,13 @@ public abstract class AbstractCharacter {
         this.cards = nullCards.clone();
     }
 
-    public AbstractCard[] getCards(){
+    public AbstractCard[] getCards() {
         return cards;
     }
 
     /**
      * 设置卡组
+     *
      * @param cardGroupList
      */
     public abstract void setCardGroupIndex(List<Integer> cardGroupList);
@@ -203,7 +223,7 @@ public abstract class AbstractCharacter {
             }
         }
         if (!isAdd) {
-            ToastUtil.show(this.getName()+"手牌已满，无法加入新卡牌!");
+            ToastUtil.show(this.getName() + "手牌已满，无法加入新卡牌!");
             Log.d("MyTAG", this.getName());
         }
     }
@@ -214,12 +234,12 @@ public abstract class AbstractCharacter {
     public void throwCard() {
         Random random = new Random();
         int result = random.nextInt(maxCardNum);
-        for (int i = 0; i<maxCardNum; i++) {
+        for (int i = 0; i < maxCardNum; i++) {
             if (!(cards[result] instanceof NullCard)) {
                 cards[result] = nullCard;
                 break;
             } else {
-                if (result != maxCardNum-1) {
+                if (result != maxCardNum - 1) {
                     result += 1;
                 } else {
                     result = 0;
@@ -230,6 +250,7 @@ public abstract class AbstractCharacter {
 
     /**
      * 获取卡堆剩余卡牌数量
+     *
      * @return
      */
     public int getCardGroupNum() {
@@ -238,6 +259,7 @@ public abstract class AbstractCharacter {
 
     /**
      * 获得当前手牌
+     *
      * @param i
      * @return
      */
@@ -265,6 +287,7 @@ public abstract class AbstractCharacter {
 
     /**
      * 添加装备
+     *
      * @param card
      */
     public void addEquipment(EquipmentCard card) {
@@ -288,6 +311,7 @@ public abstract class AbstractCharacter {
 
     /**
      * 获取状态
+     *
      * @return
      */
     public AbstractBuff getStates(int i) {
@@ -315,13 +339,13 @@ public abstract class AbstractCharacter {
             accept = Game.player;
         }
         // buff发动、buff持续回合全部减1
-        Iterator iterator =  buffs.iterator();
+        Iterator iterator = buffs.iterator();
         while (iterator.hasNext()) {
             AbstractBuff buff = (AbstractBuff) iterator.next();
             buff.use(tempNormalCard, user, accept);
             buff.reduceTurn();
             if (buff.isClear()) {
-                Log.d("MyTAG", user.getName()+"移除"+buff.getName());
+                Log.d("MyTAG", user.getName() + "移除" + buff.getName());
                 iterator.remove();
             }
         }
@@ -336,31 +360,70 @@ public abstract class AbstractCharacter {
 
     }
 
+    public void addArmor(int num) {
+        armor += num;
+    }
+
+    public void reduceArmor(int num) {
+        armor -= num;
+        if (armor < 0) {
+            armor = 0;
+        }
+    }
+
     // todo 优化？？
     public void removeEquipment() {
-            int size = equipments.length;
-            Random random = new Random();
-            int index= random.nextInt(size);// [0, size)
-            EquipmentCard equipmentCard = equipments[index];
-            for (int i = 0; i < size; i++) {
-                if (!(equipmentCard instanceof NullEquipment)) {
-                    break;
-                }
-                index+=1;
-                if (index >= size) {
-                    index = 0;
-                }
-                equipmentCard = equipments[index];
+        int size = equipments.length;
+        Random random = new Random();
+        int index = random.nextInt(size);// [0, size)
+        EquipmentCard equipmentCard = equipments[index];
+        for (int i = 0; i < size; i++) {
+            if (!(equipmentCard instanceof NullEquipment)) {
+                break;
             }
+            index += 1;
+            if (index >= size) {
+                index = 0;
+            }
+            equipmentCard = equipments[index];
+        }
 
-            int buffCode = equipmentCard.getBuffCode();
-            equipments[index] = nullEquipment;
-            // 移除buff
-            for (AbstractBuff buff : buffs) {
-                if (buff.getBuffCode() == buffCode) {
-                    buffs.remove(buff);
-                    return;
-                }
+        int buffCode = equipmentCard.getBuffCode();
+        equipments[index] = nullEquipment;
+        // 移除buff
+        for (AbstractBuff buff : buffs) {
+            if (buff.getBuffCode() == buffCode) {
+                buffs.remove(buff);
+                return;
             }
+        }
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    // 获得可用手牌数
+    public int getUsableCardNum() {
+        int i = 0;
+        for (AbstractCard card : cards) {
+            if (!(card instanceof NullCard)) {
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public void addMaxHp(int i) {
+        maxHp+=i;
+        hp+=i;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 }

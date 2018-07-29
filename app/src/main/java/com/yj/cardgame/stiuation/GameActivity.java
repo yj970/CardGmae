@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.yj.cardgame.Game;
 import com.yj.cardgame.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class GameActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        Game.start();
 
         battleFragment = new BattleFragment();
         checkPointFragment = new CheckPointFragment();
@@ -78,5 +80,11 @@ public class GameActivity extends FragmentActivity {
     // 关卡
     public void checkPoint() {
         show(1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Game.destroy();
     }
 }

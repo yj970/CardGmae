@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class Game {
     public static Monster monster ;
-    public static Player player = new Player();
+    public static Player player;
 
     public static void destroy() {
         monster = null;
@@ -28,16 +28,19 @@ public class Game {
 
     static Set<AbstractCheckPoint> set = new HashSet<>();
 
-    static {
-        // 关卡集合
-        set.add(new PigCheckPoint());
-        set.add(new PigCheckPoint());
-        set.add(new PigCheckPoint());
-        set.add(new PigCheckPoint());
+    public static void start() {
+        // 初始化游戏相关配置，角色，卡牌，关卡等
+        player = new Player();
+        setCheckPoint();
     }
 
-    public static void init() {
-        // 初始化游戏相关配置，角色，卡牌，关卡等
+    // 关卡集合
+    private static void setCheckPoint() {
+        set.clear();
+        set.add(new PigCheckPoint());
+        set.add(new PigCheckPoint());
+        set.add(new PigCheckPoint());
+        set.add(new PigCheckPoint());
     }
 
     // 从关卡集合，获取关卡
